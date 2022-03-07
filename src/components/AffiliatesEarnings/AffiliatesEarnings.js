@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import { Card, Elevation } from '@blueprintjs/core'
 
 import Pagination from 'ui/Pagination'
@@ -77,16 +76,16 @@ class AffiliatesEarnings extends PureComponent {
 
   render() {
     const {
-      columns,
-      getFullTime,
-      targetSymbols,
-      entries,
-      existingCoins,
-      dataReceived,
-      pageLoading,
-      refresh,
       t,
+      columns,
+      entries,
+      refresh,
       timeOffset,
+      pageLoading,
+      getFullTime,
+      dataReceived,
+      existingCoins,
+      targetSymbols,
     } = this.props
     const tableColumns = getColumns({
       filteredData: entries,
@@ -107,12 +106,18 @@ class AffiliatesEarnings extends PureComponent {
             numRows={entries.length}
             tableColumns={tableColumns}
           />
-          <Pagination target={TYPE} loading={pageLoading} />
+          <Pagination
+            target={TYPE}
+            loading={pageLoading}
+          />
         </>
       )
     }
     return (
-      <Card elevation={Elevation.ZERO} className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+      <Card
+        elevation={Elevation.ZERO}
+        className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
+      >
         <SectionHeader
           title='affiliatesearnings.title'
           getTitleLink={() => <AffiliatesLink />}
@@ -131,4 +136,4 @@ class AffiliatesEarnings extends PureComponent {
   }
 }
 
-export default withTranslation('translations')(AffiliatesEarnings)
+export default AffiliatesEarnings
