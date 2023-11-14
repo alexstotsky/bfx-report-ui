@@ -1,7 +1,6 @@
-import React, { memo } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
 import NoData from 'ui/NoData'
@@ -69,17 +68,6 @@ const AppSummaryFees = () => {
   )
 }
 
-AppSummaryFees.propTypes = {
-  data: PropTypes.shape({
-    derivMakerRebate: PropTypes.number,
-    derivTakerFee: PropTypes.number,
-    makerFee: PropTypes.number,
-    takerFeeToCrypto: PropTypes.number,
-    takerFeeToFiat: PropTypes.number,
-    takerFeeToStable: PropTypes.number,
-  }).isRequired,
-  pageLoading: PropTypes.bool.isRequired,
-  dataReceived: PropTypes.bool.isRequired,
-}
 
-export default memo(AppSummaryFees)
+
+export default AppSummaryFees
