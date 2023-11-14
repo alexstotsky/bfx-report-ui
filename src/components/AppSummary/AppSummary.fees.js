@@ -68,6 +68,4 @@ const AppSummaryFees = () => {
   )
 }
 
-
-
 export default AppSummaryFees
