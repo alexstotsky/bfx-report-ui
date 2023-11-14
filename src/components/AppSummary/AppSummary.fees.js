@@ -1,11 +1,13 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
 import NoData from 'ui/NoData'
 import Loading from 'ui/Loading'
 import CollapsedTable from 'ui/CollapsedTable'
+import { getIsTurkishSite } from 'state/base/selectors'
 
 import { getFeesColumns } from './AppSummary.columns'
 
@@ -13,9 +15,9 @@ const AppSummaryFees = ({
   data,
   pageLoading,
   dataReceived,
-  isTurkishSite,
 }) => {
   const { t } = useTranslation()
+  const isTurkishSite = useSelector(getIsTurkishSite)
   const {
     makerFee = 0,
     derivTakerFee = 0,
@@ -71,7 +73,6 @@ AppSummaryFees.propTypes = {
     takerFeeToFiat: PropTypes.number,
     takerFeeToStable: PropTypes.number,
   }).isRequired,
-  isTurkishSite: PropTypes.bool.isRequired,
   pageLoading: PropTypes.bool.isRequired,
   dataReceived: PropTypes.bool.isRequired,
 }
