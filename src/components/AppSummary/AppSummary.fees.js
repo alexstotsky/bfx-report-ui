@@ -7,16 +7,21 @@ import { isEmpty } from '@bitfinex/lib-js-util-base'
 import NoData from 'ui/NoData'
 import Loading from 'ui/Loading'
 import CollapsedTable from 'ui/CollapsedTable'
+import {
+  getData,
+  getPageLoading,
+  getDataReceived,
+} from 'state/accountSummary/selectors'
 import { getIsTurkishSite } from 'state/base/selectors'
+
 
 import { getFeesColumns } from './AppSummary.columns'
 
-const AppSummaryFees = ({
-  data,
-  pageLoading,
-  dataReceived,
-}) => {
+const AppSummaryFees = () => {
   const { t } = useTranslation()
+  const data = useSelector(getData)
+  const pageLoading = useSelector(getPageLoading)
+  const dataReceived = useSelector(getDataReceived)
   const isTurkishSite = useSelector(getIsTurkishSite)
   const {
     makerFee = 0,
