@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
@@ -9,12 +10,12 @@ import CollapsedTable from 'ui/CollapsedTable'
 import { getFeesColumns } from './AppSummary.columns'
 
 const AppSummaryFees = ({
-  t,
   data,
   pageLoading,
   dataReceived,
   isTurkishSite,
 }) => {
+  const { t } = useTranslation()
   const {
     makerFee = 0,
     derivTakerFee = 0,
@@ -70,7 +71,6 @@ AppSummaryFees.propTypes = {
     takerFeeToFiat: PropTypes.number,
     takerFeeToStable: PropTypes.number,
   }).isRequired,
-  t: PropTypes.func.isRequired,
   isTurkishSite: PropTypes.bool.isRequired,
   pageLoading: PropTypes.bool.isRequired,
   dataReceived: PropTypes.bool.isRequired,
