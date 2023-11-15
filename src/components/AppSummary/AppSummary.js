@@ -27,7 +27,6 @@ const AppSummary = ({
   setParams,
   pageLoading,
   dataReceived,
-  isTurkishSite,
   refreshBalance,
   currentTimeFrame,
   refreshSummaryByAsset,
@@ -101,13 +100,7 @@ const AppSummary = ({
         </SectionHeader>
         <div className='app-summary-data-row'>
           <Value />
-          <Fees
-            t={t}
-            data={data}
-            pageLoading={pageLoading}
-            dataReceived={dataReceived}
-            isTurkishSite={isTurkishSite}
-          />
+          <Fees />
         </div>
         <ByAsset />
       </div>
@@ -128,7 +121,6 @@ AppSummary.propTypes = {
   }),
   dataReceived: PropTypes.bool.isRequired,
   fetchData: PropTypes.func.isRequired,
-  isTurkishSite: PropTypes.bool.isRequired,
   pageLoading: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired,
   refreshBalance: PropTypes.func.isRequired,
