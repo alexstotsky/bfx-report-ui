@@ -34,7 +34,7 @@ const AppSummary = ({
 }) => {
   useEffect(() => {
     if (!dataReceived && !pageLoading) fetchData()
-  }, [])
+  }, [dataReceived, pageLoading])
 
   const handleTimeFrameChange = (timeframe) => {
     setParams({ timeframe })
