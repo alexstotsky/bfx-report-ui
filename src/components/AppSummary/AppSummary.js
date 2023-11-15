@@ -21,7 +21,6 @@ import ByAsset from './AppSummary.byAsset'
 
 const AppSummary = ({
   t,
-  data,
   refresh,
   fetchData,
   setParams,
@@ -63,10 +62,7 @@ const AppSummary = ({
                 {t('summary.title')}
               </div>
               <div className='app-summary-title-item'>
-                <Leo
-                  data={data}
-                  isLoading={pageLoading}
-                />
+                <Leo />
               </div>
             </div>
           </SectionHeaderTitle>
@@ -109,16 +105,6 @@ const AppSummary = ({
 }
 
 AppSummary.propTypes = {
-  data: PropTypes.shape({
-    derivMakerRebate: PropTypes.number,
-    derivTakerFee: PropTypes.number,
-    leoAmountAvg: PropTypes.number,
-    leoLev: PropTypes.number,
-    makerFee: PropTypes.number,
-    takerFeeToCrypto: PropTypes.number,
-    takerFeeToFiat: PropTypes.number,
-    takerFeeToStable: PropTypes.number,
-  }),
   dataReceived: PropTypes.bool.isRequired,
   fetchData: PropTypes.func.isRequired,
   pageLoading: PropTypes.bool.isRequired,
@@ -129,10 +115,6 @@ AppSummary.propTypes = {
   currentTimeFrame: PropTypes.string.isRequired,
   isUnrealizedProfitExcluded: PropTypes.bool.isRequired,
   refreshSummaryByAsset: PropTypes.func.isRequired,
-}
-
-AppSummary.defaultProps = {
-  data: {},
 }
 
 export default memo(AppSummary)
