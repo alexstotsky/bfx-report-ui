@@ -21,7 +21,6 @@ import {
   getTimeframe,
   getIsUnrealizedProfitExcluded,
 } from 'state/accountBalance/selectors'
-import { getIsTurkishSite } from 'state/base/selectors'
 
 import AppSummary from './AppSummary'
 
@@ -30,7 +29,6 @@ const mapStateToProps = state => ({
   pageLoading: getPageLoading(state),
   dataReceived: getDataReceived(state),
   currentTimeFrame: getTimeframe(state),
-  isTurkishSite: getIsTurkishSite(state),
   isUnrealizedProfitExcluded: getIsUnrealizedProfitExcluded(state),
 })
 
