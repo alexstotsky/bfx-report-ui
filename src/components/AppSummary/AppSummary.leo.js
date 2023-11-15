@@ -1,12 +1,15 @@
-import React, { memo } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import PropTypes from 'prop-types'
 
 import Icon from 'icons'
 import { fixedFloat } from 'ui/utils'
+import { getData, getPageLoading } from 'state/accountSummary/selectors'
 
-const AccountSummaryLeo = ({ data, isLoading }) => {
+const AccountSummaryLeo = () => {
   const { t } = useTranslation()
+  const data = useSelector(getData)
+  const isLoading = useSelector(getPageLoading)
   const { leoLev = 0, leoAmountAvg = 0 } = data
   const formattedLeoAmount = fixedFloat(leoAmountAvg)
 
@@ -30,12 +33,4 @@ const AccountSummaryLeo = ({ data, isLoading }) => {
   )
 }
 
-AccountSummaryLeo.propTypes = {
-  data: PropTypes.shape({
-    leoLev: PropTypes.number,
-    leoAmountAvg: PropTypes.number,
-  }).isRequired,
-  isLoading: PropTypes.bool.isRequired,
-}
-
-export default memo(AccountSummaryLeo)
+export default AccountSummaryLeo
