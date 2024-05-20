@@ -21,7 +21,7 @@ Loading.propTypes = {
 }
 
 Loading.defaultProps = {
-  showProgress: true,
+  showProgress: false,
 }
 
 export default Loading
