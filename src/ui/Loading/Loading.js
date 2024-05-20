@@ -5,7 +5,7 @@ import { Spinner } from '@blueprintjs/core'
 export const Loading = (showProgress) => (
   <div className='loading-container'>
     {showProgress && (
-    <div className='loading-container'>
+    <div className='loading-progress'>
       100%
     </div>
     )}
