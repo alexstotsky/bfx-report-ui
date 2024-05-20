@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Spinner } from '@blueprintjs/core'
 
-export const Loading = (showProgress) => (
+export const Loading = ({ showProgress }) => (
   <div className='loading-container'>
     {showProgress && (
     <div className='loading-progress'>
@@ -21,7 +21,7 @@ Loading.propTypes = {
 }
 
 Loading.defaultProps = {
-  showProgress: false,
+  showProgress: true,
 }
 
 export default Loading
