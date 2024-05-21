@@ -245,14 +245,14 @@ export const getCellState = (isLoading, isNoData) => {
   return null
 }
 
-export const getCell = (content, tooltipContent, className) => (
-  <Cell
-    className={className}
-    tooltip={tooltipContent}
-  >
-    {content}
-  </Cell>
-)
+export const getCell = (content, t, tooltip) => {
+  const tooltipContent = getTooltipContent(tooltip || content, t)
+  return (
+    <Cell tooltip={tooltipContent}>
+      {content}
+    </Cell>
+  )
+}
 
 export const getRowsConfig = (isLoading, isNoData, numRows = 0) => {
   if (isLoading) return 5
