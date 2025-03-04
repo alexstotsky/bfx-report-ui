@@ -13,6 +13,7 @@ import { getIsElectronMenuHidden } from 'state/electronMenu/selectors'
 
 function App() {
   const showElectronMenu = !useSelector(getIsElectronMenuHidden)
+  console.log('+++showElectronMenu', showElectronMenu)
 
   return (
     <I18nextProvider i18n={i18n}>
