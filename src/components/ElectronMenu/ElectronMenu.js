@@ -7,8 +7,10 @@ import { getElectronMenuTitle, getElectronMenuTemplate } from 'state/electronMen
 import DropdownMenu from './ElectronMenu.dropdown'
 
 const ElectronMenu = () => {
-  const items = useSelector(getElectronMenuTemplate)
   const menuTitle = useSelector(getElectronMenuTitle)
+  const items = useSelector(getElectronMenuTemplate)
+
+  console.log('+++entries', items)
 
   return (
     <div className='electron-menu'>
