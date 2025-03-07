@@ -3,12 +3,15 @@ import queryString from 'query-string'
 import memoizeOne from 'memoize-one'
 import _castArray from 'lodash/castArray'
 import _sortBy from 'lodash/sortBy'
+import _includes from 'lodash/includes'
 import { get, omit, isEqual } from '@bitfinex/lib-js-util-base'
 
-import { store } from 'state/store'
 import config from 'config'
-import { getPath, TYPE_WHITELIST, ROUTE_WHITELIST } from 'state/query/utils'
+import { store } from 'state/store'
 import queryType from 'state/query/constants'
+import {
+  getPath, TYPE_WHITELIST, ROUTE_WHITELIST, SYNC_REQUIRED_TYPES,
+} from 'state/query/utils'
 import {
   getSymbolsURL, formatPair, demapSymbols, demapPairs, mapSymbol, getMappedSymbolsFromUrl,
 } from 'state/symbols/utils'
@@ -173,7 +176,7 @@ export const checkInit = (props, type) => {
 
   const shouldWaitInitialSync = showFrameworkMode && isSyncRequired
 
-  if (shouldWaitInitialSync) {
+  if (_includes(SYNC_REQUIRED_TYPES, type) && shouldWaitInitialSync) {
     return
   }
 
