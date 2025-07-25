@@ -272,7 +272,7 @@ function* getOptions({ target }) {
     case MENU_CHANGE_LOGS:
       break
     case MENU_POSITIONS_AUDIT:
-      options.id = sign.map(Number) || undefined
+      options.id = sign?.map(Number)
       break
     default: {
       const symbol = formatSymbol(target, sign)
