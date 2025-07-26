@@ -229,7 +229,6 @@ function* getOptions({ target }) {
   const isPdfExportRequired = showFrameworkMode ? yield select(getIsPdfExportRequired) : false
   const taxReportStrategy = showFrameworkMode ? yield select(getTransactionsStrategy) : ''
 
-
   switch (target) {
     case MENU_ACCOUNT_BALANCE:
     case MENU_WIN_LOSS:
