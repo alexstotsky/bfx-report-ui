@@ -519,6 +519,8 @@ export function getPageSize(target) {
 
 export const getIsExportHidden = (path) => _includes(NO_EXPORT_TARGETS, getTarget(path))
 
+export const getIsSyncRequiredType = (type) => _includes(SYNC_REQUIRED_TARGETS, type)
+
 export default {
   getIcon,
   getFilterType,
@@ -528,6 +530,7 @@ export default {
   getTarget,
   isValidTimeStamp,
   getIsExportHidden,
+  getIsSyncRequiredType,
   EXPORT_TARGETS,
   ROUTE_WHITELIST,
   TYPE_WHITELIST,
