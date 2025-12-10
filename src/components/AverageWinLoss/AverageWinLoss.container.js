@@ -16,6 +16,7 @@ import {
   getDataReceived,
   getCurrentFetchParams,
 } from 'state/winLoss/selectors'
+import { getIsTimeframeMoreThanYear } from 'state/timeRange/selectors'
 import {
   getIsSyncRequired,
   getIsFirstSyncing,
@@ -34,6 +35,7 @@ const mapStateToProps = state => ({
   isSyncRequired: getIsSyncRequired(state),
   isFirstSyncing: getIsFirstSyncing(state),
   currentFetchParams: getCurrentFetchParams(state),
+  shouldShowYear: getIsTimeframeMoreThanYear(state),
   shouldRefreshAfterSync: getShouldRefreshAfterSync(state),
 })
 
