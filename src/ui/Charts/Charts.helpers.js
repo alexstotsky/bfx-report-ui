@@ -17,7 +17,7 @@ import { CURRENCY_USD, DEFAULT_CHART_DATA } from './constants'
 
 const formatValue = val => val && +val.toFixed(2)
 
-const formatTimestamp = (timestamp, timeframe, shouldShowYear = false) => {
+const formatTimestamp = (timestamp, timeframe, shouldShowYear = true) => {
   if (!timestamp) {
     return ''
   }
@@ -28,9 +28,9 @@ const formatTimestamp = (timestamp, timeframe, shouldShowYear = false) => {
     case timeframeConstants.DAY:
       return shouldShowYear ? date.format('MMM DD YYYY') : date.format('MMM DD')
     case timeframeConstants.WEEK:
-      return date.format('WW')
+      return shouldShowYear ? date.format('WW YYYY') : date.format('WW')
     case timeframeConstants.MONTH:
-      return date.format('YY MMM')
+      return date.format('MMM YY')
     case timeframeConstants.YEAR:
       return date.format('YYYY')
     default:
