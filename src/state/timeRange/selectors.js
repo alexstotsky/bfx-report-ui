@@ -91,9 +91,18 @@ export const getTimeFrame = (state, smallestMts = 0) => {
   return getTimeFrameFromData({ ...timeRange, smallestMts })
 }
 
+export const getIsTimeframeMoreThanYear = (state) => {
+  const { start, end } = getTimeFrame(state)
+  const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000
+  const differenceInMilliseconds = end - start
+
+  return differenceInMilliseconds > oneYearInMilliseconds
+}
+
 export default {
   getIsTimeRangePreserved,
   getTimeRange,
   getTimeFrame,
   getTimeFrameFromData,
+  getIsTimeframeMoreThanYear,
 }
