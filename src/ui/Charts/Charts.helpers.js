@@ -38,7 +38,7 @@ const formatTimestamp = (timestamp, timeframe, shouldShowYear = true) => {
   }
 }
 
-export const parseChartData = ({ data, timeframe }) => {
+export const parseChartData = ({ data, shouldShowYear, timeframe }) => {
   let chartData
   if (isEmpty(data)) {
     chartData = DEFAULT_CHART_DATA
@@ -47,7 +47,7 @@ export const parseChartData = ({ data, timeframe }) => {
       const { mts } = entry
 
       return {
-        name: formatTimestamp(mts, timeframe),
+        name: formatTimestamp(mts, timeframe, shouldShowYear),
         [CURRENCY_USD]: formatValue(entry[CURRENCY_USD]),
       }
     })
@@ -59,12 +59,14 @@ export const parseChartData = ({ data, timeframe }) => {
   }
 }
 
-export const parseVSAccBalanceChartData = ({ data, timeframe, t }) => {
+export const parseVSAccBalanceChartData = ({
+  data, shouldShowYear, timeframe, t,
+}) => {
   const chartData = data.map((entry) => {
     const { mts } = entry
 
     return {
-      name: formatTimestamp(mts, timeframe),
+      name: formatTimestamp(mts, timeframe, shouldShowYear),
       perc: formatValue(entry.perc),
     }
   })
