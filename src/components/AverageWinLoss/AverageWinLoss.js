@@ -142,7 +142,6 @@ class AverageWinLoss extends PureComponent {
     } = this.props
     const paramChangerClass = classNames({ disabled: isFirstSyncing })
 
-
     const { chartData, dataKeys } = prepareChartData(
       entries, currTimeframe, isVsAccountBalanceSelected, shouldShowYear, t,
     )
