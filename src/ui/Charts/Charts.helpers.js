@@ -17,7 +17,7 @@ import { CURRENCY_USD, DEFAULT_CHART_DATA } from './constants'
 
 const formatValue = val => val && +val.toFixed(2)
 
-const formatTimestamp = (timestamp, timeframe, shouldShowYear = true) => {
+const formatTimestamp = (timestamp, timeframe, shouldShowYear) => {
   if (!timestamp) {
     return ''
   }
