@@ -34,7 +34,7 @@ import {
   getCurrentTimeFrame,
   getIsUnrealizedProfitExcluded,
 } from 'state/accountBalance/selectors'
-import { getTimeRange } from 'state/timeRange/selectors'
+import { getTimeRange, getIsTimeframeMoreThanYear } from 'state/timeRange/selectors'
 import {
   getIsSyncRequired,
   getIsFirstSyncing,
@@ -53,6 +53,7 @@ const AccountBalance = () => {
   const isFirstSync = useSelector(getIsFirstSyncing)
   const isSyncRequired = useSelector(getIsSyncRequired)
   const currTimeFrame = useSelector(getCurrentTimeFrame)
+  const shouldShowYear = useSelector(getIsTimeframeMoreThanYear)
   const isLoading = isFirstSync || (!dataReceived && pageLoading)
   const paramChangerClass = classNames({ disabled: isFirstSync })
   const isProfitExcluded = useSelector(getIsUnrealizedProfitExcluded)
@@ -81,9 +82,10 @@ const AccountBalance = () => {
 
   const { chartData, presentCurrencies } = useMemo(
     () => parseChartData({
+      shouldShowYear,
       timeframe: currTimeFrame,
       data: _sortBy(entries, ['mts']),
-    }), [currTimeFrame, entries],
+    }), [currTimeFrame, entries, shouldShowYear],
   )
 
   let showContent
