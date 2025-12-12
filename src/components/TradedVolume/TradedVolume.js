@@ -58,12 +58,14 @@ class TradedVolume extends PureComponent {
       pageLoading,
       dataReceived,
       isFirstSyncing,
+      shouldShowYear,
       params: { timeframe },
     } = this.props
     const paramChangerClass = classNames({ disabled: isFirstSyncing })
 
     const { chartData, presentCurrencies } = parseChartData({
       timeframe,
+      shouldShowYear,
       data: _sortBy(entries, ['mts']),
     })
 

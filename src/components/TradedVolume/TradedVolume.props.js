@@ -17,6 +17,7 @@ export const propTypes = {
   setTargetPairs: PropTypes.func.isRequired,
   removeTargetPair: PropTypes.func.isRequired,
   setParams: PropTypes.func.isRequired,
+  shouldShowYear: PropTypes.bool.isRequired,
 }
 
 export const defaultProps = {
