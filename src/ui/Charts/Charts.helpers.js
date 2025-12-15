@@ -79,12 +79,14 @@ export const parseVSAccBalanceChartData = ({
   }
 }
 
-export const parseLoanReportChartData = ({ data, timeframe, t }) => {
+export const parseLoanReportChartData = ({
+  data, timeframe, shouldShowYear, t,
+}) => {
   const chartData = data.map((entry) => {
     const { mts } = entry
 
     return {
-      name: formatTimestamp(mts, timeframe),
+      name: formatTimestamp(mts, timeframe, shouldShowYear),
       [CURRENCY_USD]: formatValue(entry[CURRENCY_USD]),
       cumulative: formatValue(entry.cumulative),
       perc: formatValue(entry.perc),
