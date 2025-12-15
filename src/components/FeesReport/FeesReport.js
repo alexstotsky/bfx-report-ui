@@ -66,6 +66,7 @@ class FeesReport extends PureComponent {
     reportType: PropTypes.string.isRequired,
     setParams: PropTypes.func.isRequired,
     setReportType: PropTypes.func.isRequired,
+    shouldShowYear: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
     targetSymbols: PropTypes.arrayOf(PropTypes.string),
   }
@@ -109,12 +110,14 @@ class FeesReport extends PureComponent {
       pageLoading,
       dataReceived,
       targetSymbols,
+      shouldShowYear,
       isFirstSyncing,
       params: { timeframe },
     } = this.props
     const paramChangerClass = classNames({ disabled: isFirstSyncing })
     const { chartData, dataKeys } = parseFeesReportChartData({
       data: _sortBy(entries, ['mts']),
+      shouldShowYear,
       timeframe,
       t,
     })
