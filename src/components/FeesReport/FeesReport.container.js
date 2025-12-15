@@ -27,6 +27,7 @@ import {
   getShouldRefreshAfterSync,
 } from 'state/sync/selectors'
 import { setShouldRefreshAfterSync } from 'state/sync/actions'
+import { getIsTimeframeMoreThanYear } from 'state/timeRange/selectors'
 
 import FeesReport from './FeesReport'
 
@@ -40,6 +41,7 @@ const mapStateToProps = state => ({
   targetSymbols: getTargetSymbols(state),
   isSyncRequired: getIsSyncRequired(state),
   isFirstSyncing: getIsFirstSyncing(state),
+  shouldShowYear: getIsTimeframeMoreThanYear(state),
   shouldRefreshAfterSync: getShouldRefreshAfterSync(state),
 })
 
