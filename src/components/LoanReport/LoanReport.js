@@ -51,6 +51,7 @@ class LoanReport extends PureComponent {
       targetSymbols: PropTypes.arrayOf(PropTypes.string),
     }),
     setParams: PropTypes.func.isRequired,
+    shouldShowYear: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -89,6 +90,7 @@ class LoanReport extends PureComponent {
       currentFetchParams: {
         timeframe: currTimeframe,
       },
+      shouldShowYear,
     } = this.props
     const { timeframe } = params
     const paramChangerClass = classNames({ disabled: isFirstSyncing })
@@ -96,6 +98,7 @@ class LoanReport extends PureComponent {
     const { chartData, dataKeys } = parseLoanReportChartData({
       data: _sortBy(entries, ['mts']),
       timeframe: currTimeframe,
+      shouldShowYear,
       t,
     })
 
