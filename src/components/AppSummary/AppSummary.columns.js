@@ -3,7 +3,6 @@ import { Cell } from '@blueprintjs/table'
 
 import { mapSymbol } from 'state/symbols/utils'
 import { formatAmount, fixedFloat } from 'ui/utils'
-import LoadingPlaceholder from 'ui/LoadingPlaceholder'
 import {
   getCell,
   getCellLoader,
@@ -17,7 +16,6 @@ import {
   getPairLabel,
   formatUsdValue,
   getUsdValueCell,
-  getFeePercentCell,
   getRatioValueCell,
   formatPercentValue,
   getPercentValueCell,
@@ -25,87 +23,6 @@ import {
   getUsdValueChangeCell,
   formatSecondaryPercentValue,
 } from './AppSummary.helpers'
-
-export const getFeesColumns = ({
-  makerFee,
-  isLoading,
-  feeTierVolume,
-  isTurkishSite,
-  derivTakerFee,
-  takerFeeToFiat,
-  takerFeeToStable,
-  takerFeeToCrypto,
-  derivMakerRebate,
-}) => [
-  {
-    id: 'feeTierVolume',
-    name: 'summary.fees.fee_tier_volume',
-    width: 100,
-    renderer: () => (
-      <Cell>
-        {isLoading ? (
-          <LoadingPlaceholder
-            height={18}
-            baseWidth={60}
-          />
-        ) : (
-          <div className='cell-value'>
-            $
-            {formatUsdValue(feeTierVolume)}
-          </div>
-        )}
-      </Cell>
-    ),
-  },
-  {
-    id: 'makerFee',
-    name: 'summary.fees.maker',
-    width: 100,
-    renderer: () => (
-      getFeePercentCell(isLoading, makerFee)
-    ),
-  },
-  {
-    id: 'takerFeeCrypto',
-    name: 'summary.fees.taker_crypto',
-    width: 140,
-    renderer: () => (
-      getFeePercentCell(isLoading, takerFeeToCrypto)
-    ),
-  },
-  {
-    id: 'takerFeeFiat',
-    name: 'summary.fees.taker_fiat',
-    width: 140,
-    renderer: () => (
-      getFeePercentCell(isLoading, takerFeeToFiat)
-    ),
-  },
-  {
-    id: 'takerFeeStable',
-    name: 'summary.fees.taker_stables',
-    width: 140,
-    renderer: () => (
-      getFeePercentCell(isLoading, takerFeeToStable)
-    ),
-  },
-  ...(!isTurkishSite ? [{
-    id: 'derivMakerRebate',
-    name: 'summary.fees.deriv_maker',
-    width: 140,
-    renderer: () => (
-      getFeePercentCell(isLoading, derivMakerRebate)
-    ),
-  },
-  {
-    id: 'derivTakerFee',
-    name: 'summary.fees.deriv_taker',
-    width: 140,
-    renderer: () => (
-      getFeePercentCell(isLoading, derivTakerFee)
-    ),
-  }] : []),
-]
 
 export const getAssetColumns = ({
   t,
