@@ -25,16 +25,8 @@ class AccountSummary extends PureComponent {
       fees_trading_30d: PropTypes.shape({
         USD: PropTypes.number,
       }),
-      fees_trading_total_30d: PropTypes.number,
       leoAmountAvg: PropTypes.number,
       leoLev: PropTypes.number,
-      makerFee: PropTypes.number,
-      takerFeeToCrypto: PropTypes.number,
-      takerFeeToFiat: PropTypes.number,
-      takerFeeToStable: PropTypes.number,
-      trade_vol_30d: PropTypes.arrayOf(PropTypes.shape({
-        curr: PropTypes.string,
-      })),
     }),
     dataReceived: PropTypes.bool.isRequired,
     fetchData: PropTypes.func.isRequired,
