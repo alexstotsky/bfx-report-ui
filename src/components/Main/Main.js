@@ -197,35 +197,30 @@ class Main extends PureComponent {
               component={FundingCreditHistory}
               key={PATHS.MENU_FCREDIT}
             />
-            ,
             <Route
               exact
               path={PATHS.MENU_FLOAN}
               component={FundingLoanHistory}
               key={PATHS.MENU_FLOAN}
             />
-            ,
             <Route
               exact
               path={PATHS.MENU_FOFFER}
               component={FundingOfferHistory}
               key={PATHS.MENU_FOFFER}
             />
-            ,
             <Route
               exact
               path={PATHS.MENU_FPAYMENT}
               component={FundingPayment}
               key={PATHS.MENU_FPAYMENT}
             />
-            ,
             <Route
               exact
               path={PATHS.MENU_SPAYMENTS}
               component={StakingPayments}
               key={PATHS.MENU_SPAYMENTS}
             />
-            ,
             <Route
               exact
               path={PATHS.MENU_AFFILIATES_EARNINGS}
