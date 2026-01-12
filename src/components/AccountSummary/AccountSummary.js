@@ -38,7 +38,6 @@ class AccountSummary extends PureComponent {
     }),
     dataReceived: PropTypes.bool.isRequired,
     fetchData: PropTypes.func.isRequired,
-    isTurkishSite: PropTypes.bool.isRequired,
     pageLoading: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
   }
@@ -62,7 +61,6 @@ class AccountSummary extends PureComponent {
       data,
       pageLoading,
       dataReceived,
-      isTurkishSite,
     } = this.props
     const isNoData = isEmpty(data)
     const isLoading = !dataReceived && pageLoading
@@ -86,16 +84,14 @@ class AccountSummary extends PureComponent {
             isLoading={isLoading}
             data={get(data, 'trade_vol_30d', [])}
           />
-          {!isTurkishSite && (
-            <PaidFees
-              t={t}
-              isNoData={isNoData}
-              isLoading={isLoading}
-              title='accountsummary.margin_funds'
-              data={get(data, 'fees_funding_30d', {})}
-              total={get(data, 'fees_funding_total_30d', 0)}
-            />
-          )}
+          <PaidFees
+            t={t}
+            isNoData={isNoData}
+            isLoading={isLoading}
+            title='accountsummary.margin_funds'
+            data={get(data, 'fees_funding_30d', {})}
+            total={get(data, 'fees_funding_total_30d', 0)}
+          />
           <Leo
             t={t}
             data={data}
