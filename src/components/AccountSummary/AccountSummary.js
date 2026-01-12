@@ -24,6 +24,9 @@ class AccountSummary extends PureComponent {
       fees_funding_total_30d: PropTypes.number,
       leoAmountAvg: PropTypes.number,
       leoLev: PropTypes.number,
+      trade_vol_30d: PropTypes.arrayOf(PropTypes.shape({
+        curr: PropTypes.string,
+      })),
     }),
     dataReceived: PropTypes.bool.isRequired,
     fetchData: PropTypes.func.isRequired,
