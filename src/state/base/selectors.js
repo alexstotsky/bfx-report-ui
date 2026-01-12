@@ -18,7 +18,6 @@ export const getDateFormat = state => getBase(state).dateFormat || types.DATE_FO
 export const getShowMilliseconds = state => getBase(state).milliseconds || false
 export const getTableScroll = state => getBase(state).tableScroll || false
 export const getSrc = state => getBase(state)?.src ?? types.DEFAULT_SRC
-export const getIsTurkishSite = state => isEqual(getSrc(state), types.TR_SRC)
 export const getCustomApiPort = state => getBase(state)?.customApiPort ?? null
 
 export const getTimeOffset = state => timeOffset(getTimezone(state))
@@ -71,7 +70,6 @@ export default {
   getCustomApiPort,
   getDateFormat,
   getFullTime,
-  getIsTurkishSite,
   getLocale,
   getShowMilliseconds,
   getSrc,
