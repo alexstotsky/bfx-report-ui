@@ -22,9 +22,6 @@ class AccountSummary extends PureComponent {
         USD: PropTypes.number,
       }),
       fees_funding_total_30d: PropTypes.number,
-      fees_trading_30d: PropTypes.shape({
-        USD: PropTypes.number,
-      }),
       leoAmountAvg: PropTypes.number,
       leoLev: PropTypes.number,
     }),
