@@ -1,6 +1,5 @@
 import memoizeOne from 'memoize-one'
 import _isNull from 'lodash/isNull'
-import { isEqual } from '@bitfinex/lib-js-util-base'
 
 import config from 'config'
 import { formatTime, timeOffset } from 'state/utils'
