@@ -34,7 +34,6 @@ const NavMenu = ({
   t,
   history,
   className,
-  isTurkishSite,
 }) => {
   const [isMyAccountOpen, setIsMyAccountOpen] = useState(true)
   const [isMyHistoryOpen, setIsMyHistoryOpen] = useState(true)
@@ -67,13 +66,8 @@ const NavMenu = ({
   }
 
   const getMenuItems = (menuType, target) => (
-    _map(getSections(menuType, isTurkishSite), (section) => {
-      const [type, title, isSkipped, sectionTargets = null] = section
-
-      if (isSkipped) {
-        return null
-      }
-
+    _map(getSections(menuType), (section) => {
+      const [type, title, sectionTargets = null] = section
       const types = _castArray(type)
       const mainType = types[0]
       const [path] = _castArray(getPath(mainType))
@@ -160,7 +154,6 @@ NavMenu.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   t: PropTypes.func.isRequired,
-  isTurkishSite: PropTypes.bool.isRequired,
 }
 
 NavMenu.defaultProps = {

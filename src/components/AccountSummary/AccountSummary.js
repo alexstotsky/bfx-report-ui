@@ -22,23 +22,14 @@ class AccountSummary extends PureComponent {
         USD: PropTypes.number,
       }),
       fees_funding_total_30d: PropTypes.number,
-      fees_trading_30d: PropTypes.shape({
-        USD: PropTypes.number,
-      }),
-      fees_trading_total_30d: PropTypes.number,
       leoAmountAvg: PropTypes.number,
       leoLev: PropTypes.number,
-      makerFee: PropTypes.number,
-      takerFeeToCrypto: PropTypes.number,
-      takerFeeToFiat: PropTypes.number,
-      takerFeeToStable: PropTypes.number,
       trade_vol_30d: PropTypes.arrayOf(PropTypes.shape({
         curr: PropTypes.string,
       })),
     }),
     dataReceived: PropTypes.bool.isRequired,
     fetchData: PropTypes.func.isRequired,
-    isTurkishSite: PropTypes.bool.isRequired,
     pageLoading: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
   }
@@ -62,7 +53,6 @@ class AccountSummary extends PureComponent {
       data,
       pageLoading,
       dataReceived,
-      isTurkishSite,
     } = this.props
     const isNoData = isEmpty(data)
     const isLoading = !dataReceived && pageLoading
@@ -86,16 +76,14 @@ class AccountSummary extends PureComponent {
             isLoading={isLoading}
             data={get(data, 'trade_vol_30d', [])}
           />
-          {!isTurkishSite && (
-            <PaidFees
-              t={t}
-              isNoData={isNoData}
-              isLoading={isLoading}
-              title='accountsummary.margin_funds'
-              data={get(data, 'fees_funding_30d', {})}
-              total={get(data, 'fees_funding_total_30d', 0)}
-            />
-          )}
+          <PaidFees
+            t={t}
+            isNoData={isNoData}
+            isLoading={isLoading}
+            title='accountsummary.margin_funds'
+            data={get(data, 'fees_funding_30d', {})}
+            total={get(data, 'fees_funding_total_30d', 0)}
+          />
           <Leo
             t={t}
             data={data}
