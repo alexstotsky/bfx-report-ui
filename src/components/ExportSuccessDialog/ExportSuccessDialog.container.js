@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 
+import { openExportFolder } from 'state/query/actions'
 import { getLocalExportPath, getRemoteUrn } from 'state/query/selectors'
 import { toggleExportSuccessDialog } from 'state/ui/actions'
 import { getIsExportSuccessDialogOpen } from 'state/ui/selectors'
@@ -16,6 +17,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+  openExportFolder,
   toggleDialog: toggleExportSuccessDialog,
 }
 
