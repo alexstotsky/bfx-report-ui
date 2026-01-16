@@ -38,7 +38,7 @@ const ExportSuccessDialog = ({
               {t('download.remoteStorage')}
             </a>
           ) : (
-            <span onClick={() => openExportFolder()}>
+            <span onClick={openExportFolder}>
               {localExportPath}
             </span>
           )
