@@ -61,7 +61,7 @@ import config from 'config'
 
 import actions from './actions'
 import types from './constants'
-import { getExportEmail, getIsPdfExportRequired } from './selectors'
+import { getExportEmail, getIsPdfExportRequired, getLocalExportPath } from './selectors'
 import {
   getQueryLimit,
   NO_TIME_FRAME_TARGETS,
@@ -467,7 +467,13 @@ function* prepareExport() {
   }
 }
 
+function* openExportFolder() {
+  const localExportPath = yield select(getLocalExportPath)
+  yield call(window?.bfxReportElectronApi?.showItemInFolder({ fullPath: localExportPath }))
+}
+
 export default function* exportSaga() {
   yield takeLatest(types.PREPARE_EXPORT, prepareExport)
   yield takeLatest(types.EXPORT_REPORT, exportReport)
+  yield takeLatest(types.OPEN_EXPORT_FOLDER, openExportFolder)
 }
