@@ -67,6 +67,12 @@ export function setIsPdfRequired(isPdfRequired) {
   }
 }
 
+export function openExportFolder() {
+  return {
+    type: types.OPEN_EXPORT_FOLDER,
+  }
+}
+
 export default {
   exportReport,
   setRemoteUrn,
@@ -75,4 +81,5 @@ export default {
   setIsPdfRequired,
   setIsReportExporting,
   setLocalExportPath,
+  openExportFolder,
 }
