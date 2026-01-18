@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import constants from './constants'
 
 const {
@@ -93,10 +95,7 @@ export const getTimeFrame = (state, smallestMts = 0) => {
 
 export const getIsTimeframeMoreThanYear = (state) => {
   const { start, end } = getTimeFrame(state)
-  const oneYearInMilliseconds = 365 * 24 * 60 * 60 * 1000
-  const differenceInMilliseconds = end - start
-
-  return differenceInMilliseconds > oneYearInMilliseconds
+  return moment(end).isAfter(moment(start).add(1, 'year'))
 }
 
 export default {
