@@ -67,7 +67,12 @@ const NavMenu = ({
 
   const getMenuItems = (menuType, target) => (
     _map(getSections(menuType), (section) => {
-      const [type, title, sectionTargets = null] = section
+      const [type, title, isSkipped, sectionTargets = null] = section
+
+      if (isSkipped) {
+        return null
+      }
+
       const types = _castArray(type)
       const mainType = types[0]
       const [path] = _castArray(getPath(mainType))
