@@ -61,21 +61,21 @@ export const getSections = (menuType) => {
     case MENU_MY_ACCOUNT:
       return [
         [MENU_ACCOUNT_SUMMARY, 'navItems.myAccount.summary'],
-        [MENU_ACCOUNT_BALANCE, 'navItems.myAccount.balance', !showFrameworkMode],
-        [MENU_WEIGHTED_AVERAGES, getSubSectionsTitle(showFrameworkMode), false, ANALYSIS_STAT_TARGETS],
-        [MENU_SNAPSHOTS, 'snapshots.title', !showFrameworkMode],
-        [MENU_TAX_REPORT, 'taxreport.title', !showFrameworkMode],
+        [MENU_ACCOUNT_BALANCE, 'navItems.myAccount.balance', showFrameworkMode],
+        [MENU_WEIGHTED_AVERAGES, getSubSectionsTitle(showFrameworkMode), true, ANALYSIS_STAT_TARGETS],
+        [MENU_SNAPSHOTS, 'snapshots.title', showFrameworkMode],
+        [MENU_TAX_REPORT, 'taxreport.title', showFrameworkMode],
       ]
     case MENU_MY_HISTORY:
       return [
         [MENU_LEDGERS, 'ledgers.title'],
         [MENU_MOVEMENTS, 'movements.title'],
         [MENU_WALLETS, 'wallets.title'],
-        [MENU_FPAYMENT, 'navItems.myHistory.earnings', false, EARNINGS_TARGETS],
+        [MENU_FPAYMENT, 'navItems.myHistory.earnings', true, EARNINGS_TARGETS],
         [[MENU_TRADES, MENU_CANDLES], 'trades.title'],
         [[MENU_ORDERS, MENU_ORDER_TRADES], 'orders.title'],
         [[MENU_POSITIONS, MENU_POSITIONS_ACTIVE, MENU_POSITIONS_AUDIT], 'positions.title'],
-        [MENU_FOFFER, 'navItems.myHistory.funding', false, FUNDING_TARGETS],
+        [MENU_FOFFER, 'navItems.myHistory.funding', true, FUNDING_TARGETS],
       ]
     case MENU_MARKET_HISTORY:
       return [

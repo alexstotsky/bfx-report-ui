@@ -67,9 +67,9 @@ const NavMenu = ({
 
   const getMenuItems = (menuType, target) => (
     _map(getSections(menuType), (section) => {
-      const [type, title, isSkipped, sectionTargets = null] = section
+      const [type, title, isVisible = true, sectionTargets = null] = section
 
-      if (isSkipped) {
+      if (!isVisible) {
         return null
       }
 
