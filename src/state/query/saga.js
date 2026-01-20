@@ -69,7 +69,7 @@ import {
 } from './utils'
 
 
-const { showFrameworkMode } = config
+const { isElectronApp, showFrameworkMode } = config
 const {
   MENU_ACCOUNT_BALANCE,
   MENU_AFFILIATES_EARNINGS,
@@ -468,8 +468,10 @@ function* prepareExport() {
 }
 
 function* openExportFolder() {
-  const localExportPath = yield select(getLocalExportPath)
-  yield call(window?.bfxReportElectronApi?.showItemInFolder({ fullPath: localExportPath }))
+  if (isElectronApp) {
+    const localExportPath = yield select(getLocalExportPath)
+    yield call(window?.bfxReportElectronApi?.showItemInFolder({ fullPath: localExportPath }))
+  }
 }
 
 export default function* exportSaga() {
