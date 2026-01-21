@@ -472,7 +472,7 @@ function* openExportFolder() {
   if (isElectronApp) {
     const fullPath = yield select(getLocalExportPath)
     try {
-      yield call([window.bfxReportElectronApi, 'showItemInFolder'], { fullPath })
+      yield call(window.bfxReportElectronApi.showItemInFolder, { fullPath })
     } catch (error) {
       yield call(logger.error, error)
     }
