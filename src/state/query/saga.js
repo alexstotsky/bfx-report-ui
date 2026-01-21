@@ -9,6 +9,7 @@ import _assign from 'lodash/assign'
 import _isArray from 'lodash/isArray'
 import _includes from 'lodash/includes'
 
+import { logger } from 'utils/logger'
 import { LANGUAGES } from 'locales/i18n'
 import { makeFetchCall } from 'state/utils'
 import { formatRawSymbols, mapRequestSymbols, mapRequestPairs } from 'state/symbols/utils'
@@ -469,8 +470,12 @@ function* prepareExport() {
 
 function* openExportFolder() {
   if (isElectronApp) {
-    const localExportPath = yield select(getLocalExportPath)
-    yield call(window?.bfxReportElectronApi?.showItemInFolder({ fullPath: localExportPath }))
+    const fullPath = yield select(getLocalExportPath)
+    try {
+      yield call([window.bfxReportElectronApi, 'showItemInFolder'], { fullPath })
+    } catch (error) {
+      yield call(logger.error, error)
+    }
   }
 }
 
