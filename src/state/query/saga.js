@@ -62,7 +62,13 @@ import config from 'config'
 
 import actions from './actions'
 import types from './constants'
-import { getExportEmail, getIsPdfExportRequired, getLocalExportPath } from './selectors'
+import {
+  getExportEmail,
+  getIsSingleExport,
+  getLocalExportPath,
+  getFirstExportPath,
+  getIsPdfExportRequired,
+} from './selectors'
 import {
   getQueryLimit,
   NO_TIME_FRAME_TARGETS,
@@ -470,7 +476,10 @@ function* prepareExport() {
 
 function* openExportFolder() {
   if (isElectronApp) {
-    const fullPath = yield select(getLocalExportPath)
+    const filePath = yield select(getFirstExportPath)
+    const folderPath = yield select(getLocalExportPath)
+    const isSingleExport = yield select(getIsSingleExport)
+    const fullPath = isSingleExport ? filePath : folderPath
     try {
       yield call(window.bfxReportElectronApi.showItemInFolder, { fullPath })
     } catch (error) {
