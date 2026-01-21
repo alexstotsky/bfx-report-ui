@@ -8,6 +8,8 @@ const initialState = {
   remoteUrn: null,
   isReportExporting: false,
   isPDFRequired: false,
+  isSingleExport: true,
+  firstExportPath: null,
 }
 
 export function queryReducer(state = initialState, action) {
@@ -37,6 +39,16 @@ export function queryReducer(state = initialState, action) {
       return {
         ...state,
         isPDFRequired: payload,
+      }
+    case types.SET_IS_SINGLE_EXPORT:
+      return {
+        ...state,
+        isSingleExport: payload,
+      }
+    case types.SET_FIRST_EXPORT_PATH:
+      return {
+        ...state,
+        firstExportPath: payload,
       }
     case authTypes.LOGOUT:
       return initialState
