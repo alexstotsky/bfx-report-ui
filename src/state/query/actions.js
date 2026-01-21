@@ -73,6 +73,20 @@ export function openExportFolder() {
   }
 }
 
+export function stIsSingleExport(isSingleExport) {
+  return {
+    type: types.SET_IS_SINGLE_EXPORT,
+    payload: isSingleExport,
+  }
+}
+
+export function setFirstExportPath(path) {
+  return {
+    type: types.SET_FIRST_EXPORT_PATH,
+    payload: path,
+  }
+}
+
 export default {
   exportReport,
   setRemoteUrn,
@@ -82,4 +96,6 @@ export default {
   setIsReportExporting,
   setLocalExportPath,
   openExportFolder,
+  stIsSingleExport,
+  setFirstExportPath,
 }
