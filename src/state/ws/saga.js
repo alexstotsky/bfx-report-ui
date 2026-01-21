@@ -47,7 +47,6 @@ function* handleReportGenerationCompleted({ payload }) {
   const { reportFilesMetadata } = result
   const isSingleExport = _size(reportFilesMetadata) === 1
   const firstFilePath = _get(_first(reportFilesMetadata), 'filePath')
-
   yield put(setIsSingleExport(isSingleExport))
   yield put(setFirstExportPath(firstFilePath))
   yield put(setIsReportExporting(false))
