@@ -17,6 +17,7 @@ const ExportSuccessDialog = ({
   remoteUrn,
   toggleDialog,
   localExportPath,
+  openExportFolder,
 }) => {
   if (!isOpen) {
     return null
@@ -37,7 +38,7 @@ const ExportSuccessDialog = ({
               {t('download.remoteStorage')}
             </a>
           ) : (
-            <span>
+            <span onClick={openExportFolder}>
               {localExportPath}
             </span>
           )
@@ -73,6 +74,7 @@ ExportSuccessDialog.propTypes = {
   t: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   toggleDialog: PropTypes.func.isRequired,
+  openExportFolder: PropTypes.func.isRequired,
 }
 ExportSuccessDialog.defaultProps = {
   remoteUrn: null,

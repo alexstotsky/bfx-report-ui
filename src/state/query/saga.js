@@ -9,6 +9,7 @@ import _assign from 'lodash/assign'
 import _isArray from 'lodash/isArray'
 import _includes from 'lodash/includes'
 
+import { logger } from 'utils/logger'
 import { LANGUAGES } from 'locales/i18n'
 import { makeFetchCall } from 'state/utils'
 import { formatRawSymbols, mapRequestSymbols, mapRequestPairs } from 'state/symbols/utils'
@@ -61,7 +62,13 @@ import config from 'config'
 
 import actions from './actions'
 import types from './constants'
-import { getExportEmail, getIsPdfExportRequired } from './selectors'
+import {
+  getExportEmail,
+  getIsSingleExport,
+  getLocalExportPath,
+  getFirstExportPath,
+  getIsPdfExportRequired,
+} from './selectors'
 import {
   getQueryLimit,
   NO_TIME_FRAME_TARGETS,
@@ -69,7 +76,7 @@ import {
 } from './utils'
 
 
-const { showFrameworkMode } = config
+const { isElectronApp, showFrameworkMode } = config
 const {
   MENU_ACCOUNT_BALANCE,
   MENU_AFFILIATES_EARNINGS,
@@ -467,7 +474,22 @@ function* prepareExport() {
   }
 }
 
+function* openExportFolder() {
+  if (isElectronApp) {
+    const filePath = yield select(getFirstExportPath)
+    const folderPath = yield select(getLocalExportPath)
+    const isSingleExport = yield select(getIsSingleExport)
+    const fullPath = isSingleExport ? filePath : folderPath
+    try {
+      yield call(window.bfxReportElectronApi.showItemInFolder, { fullPath })
+    } catch (error) {
+      yield call(logger.error, error)
+    }
+  }
+}
+
 export default function* exportSaga() {
   yield takeLatest(types.PREPARE_EXPORT, prepareExport)
   yield takeLatest(types.EXPORT_REPORT, exportReport)
+  yield takeLatest(types.OPEN_EXPORT_FOLDER, openExportFolder)
 }

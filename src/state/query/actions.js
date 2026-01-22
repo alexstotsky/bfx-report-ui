@@ -67,6 +67,26 @@ export function setIsPdfRequired(isPdfRequired) {
   }
 }
 
+export function openExportFolder() {
+  return {
+    type: types.OPEN_EXPORT_FOLDER,
+  }
+}
+
+export function setIsSingleExport(isSingleExport) {
+  return {
+    type: types.SET_IS_SINGLE_EXPORT,
+    payload: isSingleExport,
+  }
+}
+
+export function setFirstExportPath(path) {
+  return {
+    type: types.SET_FIRST_EXPORT_PATH,
+    payload: path,
+  }
+}
+
 export default {
   exportReport,
   setRemoteUrn,
@@ -75,4 +95,7 @@ export default {
   setIsPdfRequired,
   setIsReportExporting,
   setLocalExportPath,
+  openExportFolder,
+  setIsSingleExport,
+  setFirstExportPath,
 }
