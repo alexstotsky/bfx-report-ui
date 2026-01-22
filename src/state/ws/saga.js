@@ -43,9 +43,9 @@ function* handleTokenAuthRequired() {
 }
 
 function* handleReportGenerationCompleted({ payload }) {
-  const reportFilesMetadata = payload?.result?.reportFilesMetadata
-  const isSingleExport = _size(reportFilesMetadata) === 1
-  const firstFilePath = _get(_first(reportFilesMetadata), 'filePath')
+  const files = payload?.result?.reportFilesMetadata
+  const isSingleExport = _size(files) === 1
+  const firstFilePath = _get(_first(files), 'filePath')
   yield put(setIsSingleExport(isSingleExport))
   yield put(setFirstExportPath(firstFilePath))
   yield put(setIsReportExporting(false))
