@@ -63,11 +63,9 @@ i18n
     debug: (REACT_APP_ENV === 'development'),
 
     react: {
-      wait: true,
-      useSuspense: false,
-      //   bindI18n: 'languageChanged loaded',
-      //   bindStore: 'added removed',
-      //   nsMode: 'default'
+      useSuspense: true,
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
     },
 
     interpolation: {
