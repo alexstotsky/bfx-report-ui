@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { I18nextProvider } from 'react-i18next'
@@ -16,14 +16,16 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <ConnectedRouter history={history}>
-        {showElectronMenu && (<ElectronMenu />)}
-        <Header />
-        <div className='app'>
-          <Auth />
-          <Main />
-        </div>
-      </ConnectedRouter>
+      <Suspense fallback={<div className='app-loader' />}>
+        <ConnectedRouter history={history}>
+          {showElectronMenu && (<ElectronMenu />)}
+          <Header />
+          <div className='app'>
+            <Auth />
+            <Main />
+          </div>
+        </ConnectedRouter>
+      </Suspense>
     </I18nextProvider>
   )
 }
