@@ -1,9 +1,16 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
+import _get from 'lodash/get'
+import _size from 'lodash/size'
+import _first from 'lodash/first'
 
 import { initSync } from 'state/sync/saga'
 import { authExpired } from 'state/auth/actions'
 import { updateSyncStatus } from 'state/sync/actions'
-import { setIsReportExporting } from 'state/query/actions'
+import {
+  setIsSingleExport,
+  setFirstExportPath,
+  setIsReportExporting,
+} from 'state/query/actions'
 import { updateStatus, updateWarningStatus } from 'state/status/actions'
 import {
   toggleExportDialog,
@@ -35,7 +42,12 @@ function* handleTokenAuthRequired() {
   yield put(authExpired())
 }
 
-function* handleReportGenerationCompleted() {
+function* handleReportGenerationCompleted({ payload }) {
+  const files = payload?.result?.reportFilesMetadata
+  const isSingleExport = _size(files) === 1
+  const firstFilePath = _get(_first(files), 'filePath')
+  yield put(setIsSingleExport(isSingleExport))
+  yield put(setFirstExportPath(firstFilePath))
   yield put(setIsReportExporting(false))
   yield put(toggleExportDialog())
   yield put(toggleExportSuccessDialog())

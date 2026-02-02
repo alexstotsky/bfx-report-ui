@@ -32,11 +32,12 @@ import constants from 'ui/ReportTypeSelector/constants'
 const TYPE = queryConstants.MENU_WIN_LOSS
 
 const prepareChartData = (
-  entries, timeframe, isVSAccBalanceData, t,
+  entries, timeframe, isVSAccBalanceData, shouldShowYear, t,
 ) => {
   if (isVSAccBalanceData) {
     const { chartData, dataKeys } = parseVSAccBalanceChartData({
       data: _sortBy(entries, ['mts']),
+      shouldShowYear,
       timeframe,
       t,
     })
@@ -45,6 +46,7 @@ const prepareChartData = (
 
   const { chartData, presentCurrencies } = parseChartData({
     data: _sortBy(entries, ['mts']),
+    shouldShowYear,
     timeframe,
   })
   return { chartData, dataKeys: presentCurrencies }
@@ -85,6 +87,7 @@ class AverageWinLoss extends PureComponent {
     reportType: PropTypes.string.isRequired,
     setParams: PropTypes.func.isRequired,
     setReportType: PropTypes.func.isRequired,
+    shouldShowYear: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -135,11 +138,12 @@ class AverageWinLoss extends PureComponent {
         isVsAccountBalanceSelected,
       },
       reportType,
+      shouldShowYear,
     } = this.props
     const paramChangerClass = classNames({ disabled: isFirstSyncing })
 
     const { chartData, dataKeys } = prepareChartData(
-      entries, currTimeframe, isVsAccountBalanceSelected, t,
+      entries, currTimeframe, isVsAccountBalanceSelected, shouldShowYear, t,
     )
 
     let showContent

@@ -15,8 +15,6 @@ export const LANGUAGES = {
   ru: 'ru',
   'zh-CN': 'zh-CN',
   'zh-TW': 'zh-TW',
-  tr: 'tr',
-  'tr-TR': 'tr',
   es: 'es-EM',
   'es-EM': 'es-EM',
   pt: 'pt-BR',
@@ -30,7 +28,6 @@ export const LANGUAGE_NAMES = {
   ru: 'Русский',
   'zh-CN': '中文 (简化)',
   'zh-TW': '中文 (繁體)',
-  tr: 'Türkçe',
   'es-EM': 'Español',
   'pt-BR': 'Português',
   vi: 'Vietnamese',
@@ -66,11 +63,9 @@ i18n
     debug: (REACT_APP_ENV === 'development'),
 
     react: {
-      wait: true,
-      useSuspense: false,
-      //   bindI18n: 'languageChanged loaded',
-      //   bindStore: 'added removed',
-      //   nsMode: 'default'
+      useSuspense: true,
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
     },
 
     interpolation: {

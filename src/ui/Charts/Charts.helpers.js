@@ -17,7 +17,7 @@ import { CURRENCY_USD, DEFAULT_CHART_DATA } from './constants'
 
 const formatValue = val => val && +val.toFixed(2)
 
-const formatTimestamp = (timestamp, timeframe) => {
+const formatTimestamp = (timestamp, timeframe, shouldShowYear) => {
   if (!timestamp) {
     return ''
   }
@@ -26,11 +26,11 @@ const formatTimestamp = (timestamp, timeframe) => {
 
   switch (timeframe) {
     case timeframeConstants.DAY:
-      return date.format('MMM DD')
+      return shouldShowYear ? date.format('MMM DD YYYY') : date.format('MMM DD')
     case timeframeConstants.WEEK:
-      return date.format('WW')
+      return shouldShowYear ? date.format('WW YYYY') : date.format('WW')
     case timeframeConstants.MONTH:
-      return date.format('YY MMM')
+      return date.format('MMM YY')
     case timeframeConstants.YEAR:
       return date.format('YYYY')
     default:
@@ -38,7 +38,7 @@ const formatTimestamp = (timestamp, timeframe) => {
   }
 }
 
-export const parseChartData = ({ data, timeframe }) => {
+export const parseChartData = ({ data, shouldShowYear, timeframe }) => {
   let chartData
   if (isEmpty(data)) {
     chartData = DEFAULT_CHART_DATA
@@ -47,7 +47,7 @@ export const parseChartData = ({ data, timeframe }) => {
       const { mts } = entry
 
       return {
-        name: formatTimestamp(mts, timeframe),
+        name: formatTimestamp(mts, timeframe, shouldShowYear),
         [CURRENCY_USD]: formatValue(entry[CURRENCY_USD]),
       }
     })
@@ -59,12 +59,14 @@ export const parseChartData = ({ data, timeframe }) => {
   }
 }
 
-export const parseVSAccBalanceChartData = ({ data, timeframe, t }) => {
+export const parseVSAccBalanceChartData = ({
+  data, shouldShowYear, timeframe, t,
+}) => {
   const chartData = data.map((entry) => {
     const { mts } = entry
 
     return {
-      name: formatTimestamp(mts, timeframe),
+      name: formatTimestamp(mts, timeframe, shouldShowYear),
       perc: formatValue(entry.perc),
     }
   })
@@ -77,12 +79,14 @@ export const parseVSAccBalanceChartData = ({ data, timeframe, t }) => {
   }
 }
 
-export const parseLoanReportChartData = ({ data, timeframe, t }) => {
+export const parseLoanReportChartData = ({
+  data, timeframe, t, shouldShowYear,
+}) => {
   const chartData = data.map((entry) => {
     const { mts } = entry
 
     return {
-      name: formatTimestamp(mts, timeframe),
+      name: formatTimestamp(mts, timeframe, shouldShowYear),
       [CURRENCY_USD]: formatValue(entry[CURRENCY_USD]),
       cumulative: formatValue(entry.cumulative),
       perc: formatValue(entry.perc),
@@ -99,12 +103,14 @@ export const parseLoanReportChartData = ({ data, timeframe, t }) => {
   }
 }
 
-export const parseFeesReportChartData = ({ data, timeframe, t }) => {
+export const parseFeesReportChartData = ({
+  data, timeframe, t, shouldShowYear,
+}) => {
   const chartData = data.map((entry) => {
     const { mts } = entry
 
     return {
-      name: formatTimestamp(mts, timeframe),
+      name: formatTimestamp(mts, timeframe, shouldShowYear),
       [CURRENCY_USD]: formatValue(entry[CURRENCY_USD]),
       cumulative: formatValue(entry.cumulative),
     }

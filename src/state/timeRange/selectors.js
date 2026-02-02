@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import constants from './constants'
 
 const {
@@ -91,9 +93,15 @@ export const getTimeFrame = (state, smallestMts = 0) => {
   return getTimeFrameFromData({ ...timeRange, smallestMts })
 }
 
+export const getIsTimeframeMoreThanYear = (state) => {
+  const { start, end } = getTimeFrame(state)
+  return moment(end).isAfter(moment(start).add(1, 'year'))
+}
+
 export default {
   getIsTimeRangePreserved,
   getTimeRange,
   getTimeFrame,
   getTimeFrameFromData,
+  getIsTimeframeMoreThanYear,
 }
