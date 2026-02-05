@@ -4,13 +4,12 @@ import {
   select,
   takeLatest,
 } from 'redux-saga/effects'
-
 import queryString from 'query-string'
 
-import { dispatchAction, makeFetchCall, updateUrlParam } from 'state/utils'
 import { updateAuth } from 'state/auth/actions'
-import { updateErrorStatus } from 'state/status/actions'
 import { getAuthData } from 'state/auth/selectors'
+import { updateErrorStatus } from 'state/status/actions'
+import { dispatchAction, makeFetchCall, updateUrlParam } from 'state/utils'
 
 import types from './constants'
 import actions from './actions'
