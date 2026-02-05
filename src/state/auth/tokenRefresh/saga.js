@@ -5,7 +5,9 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 
-import { dispatchAction, makeFetchCall } from 'state/utils'
+import queryString from 'query-string'
+
+import { dispatchAction, makeFetchCall, updateUrlParam } from 'state/utils'
 import { updateAuth } from 'state/auth/actions'
 import { updateErrorStatus } from 'state/status/actions'
 import { getAuthData } from 'state/auth/selectors'
@@ -15,6 +17,7 @@ import actions from './actions'
 
 const REFRESH_INTERVAL = 5 * 60 * 1000
 let interval = null
+let hasInitialUrlToken = false
 
 export function* refreshToken() {
   try {
@@ -26,6 +29,9 @@ export function* refreshToken() {
 
     if (result && result[0]) {
       yield put(updateAuth({ authToken: result[0] }))
+      if (hasInitialUrlToken) {
+        updateUrlParam('authToken', result[0])
+      }
     }
   } catch (fail) {
     yield put(updateErrorStatus({
@@ -40,6 +46,9 @@ export function tokenRefreshStart() {
   if (interval) {
     clearInterval(interval)
   }
+
+  const urlParams = queryString.parse(window.location.search)
+  hasInitialUrlToken = !!urlParams.authToken
 
   interval = setInterval(() => {
     dispatchAction(actions.refreshToken())
