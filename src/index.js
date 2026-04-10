@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -12,7 +12,6 @@ import '@blueprintjs/core/lib/css/blueprint.css'
 import '@blueprintjs/table/lib/css/table.css'
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'
 import '@blueprintjs/select/lib/css/blueprint-select.css'
-import '@blueprintjs/timezone/lib/css/blueprint-timezone.css'
 
 import { persistor, store } from 'state/store'
 import { uiLoaded, uiResized } from 'state/ui/actions'
@@ -23,13 +22,13 @@ import packageInfo from '../package.json'
 
 const { version } = packageInfo
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
-  document.getElementById('root'),
 )
 
 window.addEventListener('load', () => {
