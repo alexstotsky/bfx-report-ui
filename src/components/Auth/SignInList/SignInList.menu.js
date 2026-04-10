@@ -45,14 +45,14 @@ const UserItemMenu = ({
               <MenuItem
                 shouldDismissPopover={false}
                 onClick={() => handleDeleteAccount()}
-                className='bp3-menu-item--account'
+                className='bp5-menu-item--account'
                 text={t('auth.removeAccount')}
               />
               {showAddAccounts && (
                 <MenuItem
                   shouldDismissPopover={false}
                   onClick={() => handleAddAccounts()}
-                  className='bp3-menu-item--account'
+                  className='bp5-menu-item--account'
                   text={t(handleAccountsTitle)}
                 />
               )
