@@ -1,7 +1,7 @@
-/* Modifies iconSvgPaths.js file by removing data for all unused icons  */
+/* Modifies icon path index files by removing data for all unused icons  */
 
 const fs = require('fs')
-const { IconNames, IconSvgPaths16, IconSvgPaths20 } = require('@blueprintjs/icons')
+const { IconNames } = require('@blueprintjs/icons')
 
 const USED_ICONS = [
   IconNames.ADD_TO_FOLDER,
@@ -44,18 +44,19 @@ const USED_ICONS = [
   IconNames.UPDATED,
 ]
 
-const getUsedIcons = icons => USED_ICONS.reduce((acc, iconName) => {
-  acc[iconName] = icons[iconName]
-  return acc
-}, {})
+const toPascalCase = str => str
+  .split('-')
+  .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+  .join('')
 
-const iconPaths16 = getUsedIcons(IconSvgPaths16)
-const iconPaths20 = getUsedIcons(IconSvgPaths20)
+const generatePathsIndex = (size) => {
+  const lines = USED_ICONS
+    .map(name => `export { default as ${toPascalCase(name)} } from "./${name}";`)
+    .join('\n')
 
-const writeStream = fs.createWriteStream('./node_modules/@blueprintjs/icons/lib/esm/generated/iconSvgPaths.js')
-writeStream.once('open', () => {
-  writeStream.write(`export var IconSvgPaths16 = ${JSON.stringify(iconPaths16)};\n`)
-  writeStream.write(`export var IconSvgPaths20 = ${JSON.stringify(iconPaths20)};\n`)
-  writeStream.write('//# sourceMappingURL=iconSvgPaths.js.map')
-  writeStream.end()
-})
+  const filePath = `./node_modules/@blueprintjs/icons/lib/esm/generated/${size}px/paths/index.js`
+  fs.writeFileSync(filePath, `${lines}\n`)
+}
+
+generatePathsIndex(16)
+generatePathsIndex(20)
