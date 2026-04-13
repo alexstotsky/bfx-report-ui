@@ -22,7 +22,7 @@ class ExportDialogTargetsSelector extends PureComponent {
     const isCurrent = currentTargets.includes(item)
 
     const classes = classNames({
-      'bp3-menu-item--selected': isCurrent,
+      'bp5-menu-item--selected': isCurrent,
     })
 
     return (
