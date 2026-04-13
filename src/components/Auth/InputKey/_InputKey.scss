@@ -1,10 +1,10 @@
 .bitfinex-auth-form-input {
-  .bp3-form-group {
+  .bp5-form-group {
     margin-left: 5px;
     margin-bottom: 5px;
   }
 
-  .bp3-input {
+  .bp5-input {
     height: 40px;
     padding: 0 15px;
     font-size: 15px;
@@ -17,7 +17,7 @@
 
 @media screen and (min-width: 2560px) {
   .bitfinex-auth-form-input {
-    .bp3-input {
+    .bp5-input {
       height: 40px;
       font-size: 20px;
     }
