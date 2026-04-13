@@ -8,7 +8,7 @@
   margin: 0 10px;
   min-width: 330px;
 
-  .bp3-dialog {
+  .bp5-dialog {
     &-body {
       display: flex;
       flex-direction: column;
@@ -32,7 +32,7 @@
         justify-content: space-between;
       }
 
-      > .bp3-callout {
+      > .bp5-callout {
         border-radius: 4px;
         margin: 0 auto 24px;
         padding: 10px 21px 9px;
@@ -40,7 +40,7 @@
         background-color: var(--authNoticeBg);
       }
 
-      > .bp3-callout-icon {
+      > .bp5-callout-icon {
         display: flex;
 
         svg {
@@ -87,21 +87,21 @@
     &.bitfinex-select {
       margin-bottom: 20px;
 
-      .bp3-popover-target {
+      .bp5-popover-target {
         width: 100%;
       }
 
-      .bp3-button {
+      .bp5-button {
         width: 100%;
       }
     }
 
     &-popover {
       &.bitfinex-select-menu {
-        .bp3-popover-content {
+        .bp5-popover-content {
           width: 468px;
 
-          .bp3-menu {
+          .bp5-menu {
             max-width: 100%;
           }
         }
@@ -122,13 +122,13 @@
 
   &-sign-in {
     &-checkboxes {
-      .bp3-checkbox {
+      .bp5-checkbox {
         display: inline-block;
         width: 50%;
       }
     }
 
-    .bp3-dialog {
+    .bp5-dialog {
       &-body{
         margin: 30px 0 5px 0;
 
@@ -171,7 +171,7 @@
   }
 
   &-sign-up {
-    .bp3-dialog {
+    .bp5-dialog {
       &-body {
         margin: 30px 60px 5px 60px;
 
@@ -210,7 +210,7 @@
   }
 
   &-remember-me {
-    &.bp3-checkbox {
+    &.bp5-checkbox {
       line-height: 30px;
       margin-left: 0;
       color: var(--color2);
@@ -220,7 +220,7 @@
         margin-right: 60px;
       }
 
-      .bp3-control-indicator {
+      .bp5-control-indicator {
         box-shadow: none;
         background-color: var(--multiBg);
 
@@ -231,7 +231,7 @@
     }
 
     &--sub-accounts {
-      &.bp3-checkbox {
+      &.bp5-checkbox {
         color: #fff;
         pointer-events: none;
       }
@@ -275,7 +275,7 @@
 
 @media screen and (min-width: 2560px) {
   .bitfinex-auth {
-    .bp3-dialog {
+    .bp5-dialog {
       &-body {
         font-size: 20px;
 
@@ -285,7 +285,7 @@
           margin: 25px auto 30px auto;
         }
 
-        > .bp3-callout {
+        > .bp5-callout {
           margin: 0 auto 30px;
           padding: 12px 21px 11px;
           font-size: 20px;
