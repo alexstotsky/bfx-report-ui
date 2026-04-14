@@ -104,21 +104,21 @@ const TopNavigation = ({
               <MenuItem
                 icon={<Icon.USER_CIRCLE />}
                 shouldDismissPopover={false}
-                className='bp3-menu-item--account'
+                className='bp5-menu-item--account'
                 text={formatUsername(email, localUsername)}
               />
               <MenuItem
                 text={<SyncMode />}
                 shouldDismissPopover={false}
-                className={classNames('bp3-menu-item--sync', {
-                  'bp3-menu-item--sync--removed': !showFrameworkMode,
+                className={classNames('bp5-menu-item--sync', {
+                  'bp5-menu-item--sync--removed': !showFrameworkMode,
                 })}
               />
               <MenuItem
                 text={<QueryMode />}
                 shouldDismissPopover={false}
-                className={classNames('bp3-menu-item--query', {
-                  'bp3-menu-item--query--disabled': !showFrameworkMode,
+                className={classNames('bp5-menu-item--query', {
+                  'bp5-menu-item--query--disabled': !showFrameworkMode,
                 })}
               />
               <MenuItem
