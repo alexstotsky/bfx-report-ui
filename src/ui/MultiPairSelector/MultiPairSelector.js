@@ -19,7 +19,7 @@ class MultiPairSelector extends PureComponent {
     const { currentFilters, t } = this.props
     const isCurrent = currentFilters.includes(pair)
     const text = pair === 'inactive' ? t('selector.inactive') : pair
-    const classes = classNames({ 'bp3-menu-item--selected': isCurrent })
+    const classes = classNames({ 'bp5-menu-item--selected': isCurrent })
 
     return (
       <MenuItem
