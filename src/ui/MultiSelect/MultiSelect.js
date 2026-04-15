@@ -38,8 +38,8 @@ class MultiSelect extends PureComponent {
       ? ''
       : t('selector.select')
     const icon = isOpen
-      ? <Icon.CHEVRON_UP className='bp3-multi-select-arrow' />
-      : <Icon.CHEVRON_DOWN className='bp3-multi-select-arrow' />
+      ? <Icon.CHEVRON_UP className='bp5-multi-select-arrow' />
+      : <Icon.CHEVRON_DOWN className='bp5-multi-select-arrow' />
 
     return (
       <BlueprintMultiSelect
