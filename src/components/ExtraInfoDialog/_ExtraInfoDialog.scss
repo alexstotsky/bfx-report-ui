@@ -1,8 +1,8 @@
 .extra-info {
-  &.bp3-dialog {
+  &.bp5-dialog {
     width: 610px;
 
-    .bp3-dialog {
+    .bp5-dialog {
       &-header {
         padding-left: 20px;
       }
@@ -17,7 +17,7 @@
         justify-content: center;
         align-items: center;
 
-        .bp3-button{
+        .bp5-button{
           margin-left: 0;
         }
       }
