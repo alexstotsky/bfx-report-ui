@@ -17,7 +17,7 @@
     max-height: unset;
   }
 
-  .bp3-table-quadrant-scroll-container {
+  .bp5-table-quadrant-scroll-container {
     &::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -38,7 +38,7 @@
     scrollbar-color: var(--tableScrollThumbBg) var(--tableScrollBg);
   }
 
-  .bp3-table-cell-client {
+  .bp5-table-cell-client {
     background-color: var(--bgColor2);
   }
 
@@ -67,10 +67,10 @@
     color: var(--color2);
   }
 
-  .bp3-table-thead {
-    .bp3-table-header {
-      .bp3-table-column-name {
-        .bp3-table-th-menu-container{
+  .bp5-table-thead {
+    .bp5-table-header {
+      .bp5-table-column-name {
+        .bp5-table-th-menu-container{
           display: none;
         }
       }
@@ -78,12 +78,12 @@
   }
 }
 
-.bp3-table {
+.bp5-table {
   &-container {
-    .bp3-table-last-in-row {
+    .bp5-table-last-in-row {
       box-shadow: inset 0 -1px 0 var(--tableBorder);
 
-      &.bp3-table-header {
+      &.bp5-table-header {
         box-shadow: 0 1px 0 var(--tableBorder);
       }
     }
@@ -94,17 +94,17 @@
       background-color: var(--thBg);
       color: inherit;
 
-      .bp3-table-header {
+      .bp5-table-header {
         box-shadow: 0 1px 0 var(--tableBorder);
 
         &.align-left {
-          .bp3-table-column-name-text {
+          .bp5-table-column-name-text {
             justify-content: flex-start;
           }
         }
 
         &.align-right {
-          .bp3-table-column-name-text {
+          .bp5-table-column-name-text {
             justify-content: flex-end;
           }
         }
@@ -123,7 +123,7 @@
     }
   }
 
-  &-selection-enabled .bp3-table-header:hover::before {
+  &-selection-enabled .bp5-table-header:hover::before {
     background-color: var(--thBgHover);
   }
 
@@ -156,7 +156,7 @@
   }
 }
 
-.bp3-card {
+.bp5-card {
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -172,7 +172,7 @@
   .bitfinex-table {
     max-height: 857px;
 
-    .bp3-table-quadrant-scroll-container {
+    .bp5-table-quadrant-scroll-container {
       &::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -184,7 +184,7 @@
     }
   }
 
-  .bp3-table {
+  .bp5-table {
     &-column {
       &-name {
         font-size: 16px;
