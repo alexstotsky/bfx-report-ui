@@ -24,7 +24,7 @@ class MultiSymbolSelector extends PureComponent {
 
     const classes = classNames({
       'bitfinex-queried-symbol': existingCoins.includes(symbol) && !isCurrent && !active,
-      'bp3-menu-item--selected': isCurrent,
+      'bp5-menu-item--selected': isCurrent,
     })
 
     return (
