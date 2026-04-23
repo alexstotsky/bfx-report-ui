@@ -14,8 +14,10 @@ export const THEME_CLASSES = {
 export const getNewTheme = (theme) => {
   switch (theme) {
     case 'bp3-dark':
+    case 'bp5-dark':
       return THEME_CLASSES.DARK
     case 'bp3-light':
+    case 'bp5-light':
       return THEME_CLASSES.LIGHT
     default:
       return baseConstants.DEFAULT_THEME
