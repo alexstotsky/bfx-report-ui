@@ -143,7 +143,7 @@ class Select extends PureComponent {
         filterable={filterable}
         disabled={!items.length}
         inputProps={{
-          leftIcon: <Icons.SEARCH className='bp3-icon' />,
+          leftIcon: <Icons.SEARCH className='bp5-icon' />,
           placeholder: t('inputs.filter_placeholder'),
         }}
         items={items}
