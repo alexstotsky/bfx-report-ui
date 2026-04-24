@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { withTranslation } from 'react-i18next'
-import { TimezonePicker as BlueprintTimezonePicker } from '@blueprintjs/timezone'
+import { TimezoneSelect } from '@blueprintjs/datetime'
 
 import Icon from 'icons'
 import { tracker } from 'utils/trackers'
@@ -19,7 +19,7 @@ class TimezonePicker extends PureComponent {
 
   onOpening = (element) => {
     const { t } = this.props
-    const localTimezoneText = element.querySelector('.bp3-menu li div')
+    const localTimezoneText = element.querySelector('.bp5-menu li div')
     if (localTimezoneText) {
       localTimezoneText.innerHTML = t('inputs.timezone_local')
     }
@@ -38,7 +38,7 @@ class TimezonePicker extends PureComponent {
       : <Icon.CHEVRON_DOWN />
 
     return (
-      <BlueprintTimezonePicker
+      <TimezoneSelect
         buttonProps={{
           className: 'timezone-picker',
           rightIcon: icon,
