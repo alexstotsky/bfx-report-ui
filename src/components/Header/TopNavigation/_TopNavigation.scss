@@ -8,12 +8,12 @@
   cursor: pointer;
   border-left: 1px var(--borderColor) solid;
 
-  .bp3-popover-wrapper {
+  .bp5-popover-wrapper {
     min-width: 48px;
   }
 
   &-portal {
-    .bp3-transition-container {
+    .bp5-transition-container {
       left: 10px !important;
     }
   }
@@ -44,7 +44,7 @@
   &-content {
     background-color: var(--bgColor);
 
-    .bp3-menu {
+    .bp5-menu {
       border-radius: 0;
       padding: 0;
       border-top: 1px solid var(--borderColor);
@@ -85,7 +85,7 @@
           &-custom {
             padding: 0;
 
-            &.bp3-menu-item--subitem .bp3-popover-target {
+            &.bp5-menu-item--subitem .bp5-popover-target {
               width: 100%;
               padding: 0 46px;
             }
@@ -106,7 +106,7 @@
         .query-mode {
           height: 40px;
 
-          .bp3-popover-target {
+          .bp5-popover-target {
             height: 40px;
           }
 
@@ -150,13 +150,13 @@
     }
 
     &-portal {
-      &.bp3-overlay-open {
+      &.bp5-overlay-open {
         margin-top: 50px;
         height: calc(100vh - 50px);
         background-color: var(--bgColor);
       }
 
-      .bp3-transition-container {
+      .bp5-transition-container {
         left: -5px !important;
       }
     }
@@ -164,7 +164,7 @@
     &-content {
       width: 100vw;
 
-      .bp3-menu {
+      .bp5-menu {
         border-left: none;
 
         &-item {
@@ -189,7 +189,7 @@
             &-custom {
               padding: 0;
 
-              &.bp3-menu-item--subitem .bp3-popover-target {
+              &.bp5-menu-item--subitem .bp5-popover-target {
                 width: 100%;
                 padding: 0 46px;
               }
@@ -198,7 +198,7 @@
 
           .sync-mode,
           .query-mode {
-            .bp3-popover-target {
+            .bp5-popover-target {
               height: 35px;
             }
             &-icon {
