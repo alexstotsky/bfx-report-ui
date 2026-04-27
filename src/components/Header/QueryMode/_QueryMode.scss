@@ -1,5 +1,5 @@
 .query-mode {
-  .bp3-popover-target {
+  .bp5-popover-target {
     width: 100%;
   }
 
@@ -14,7 +14,7 @@
     width: 22px;
     height: 100%;
 
-    .bp3-spinner {
+    .bp5-spinner {
       margin: 0 1px;
 
       &-animation {
@@ -44,7 +44,7 @@
     &-icon {
       width: 28px;
 
-      .bp3-spinner {
+      .bp5-spinner {
         margin: 0;
 
         &-animation {
