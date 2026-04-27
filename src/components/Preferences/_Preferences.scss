@@ -1,6 +1,6 @@
 .preferences {
-  &.bp3-dialog {
-    .bp3-dialog {
+  &.bp5-dialog {
+    .bp5-dialog {
       &-header {
         padding-left: 20px;
       }
@@ -15,7 +15,7 @@
         justify-content: space-between;
         align-items: center;
 
-        .bp3-button{
+        .bp5-button{
           margin-left: 0;
         }
       }
@@ -65,7 +65,7 @@
     height: 40px;
   }
 
-  .bp3-checkbox {
+  .bp5-checkbox {
     width: 14px;
   }
 }
