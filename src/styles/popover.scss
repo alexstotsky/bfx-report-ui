@@ -1,9 +1,9 @@
-.bp3-popover {
+.bp5-popover {
   background-color: var(--bgColor);
   border-radius: 2px;
   box-shadow: none;
 
-  .bp3-popover {
+  .bp5-popover {
     &-content {
       background-color: var(--popoverBg);
       color: var(--popoverColor);
@@ -18,13 +18,13 @@
 .sign-in-list--menu-popover {
   border: 1px solid var(--borderColor);
 
-  .bp3-popover-content {
+  .bp5-popover-content {
     background-color: var(--bgColor2);
   }
 }
 
-.bp3-tooltip {
-  .bp3-popover {
+.bp5-tooltip {
+  .bp5-popover {
     &-content {
       background-color: var(--tooltipBg);
       color: var(--tooltipColor);
