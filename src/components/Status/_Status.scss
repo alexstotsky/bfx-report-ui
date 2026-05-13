@@ -1,15 +1,15 @@
-.bp3-toast-container {
+.bp5-toast-container {
   position: fixed !important;
 }
 
-.bp3-toast {
+.bp5-toast {
   min-height: 40px;
   max-width: 550px;
   padding: 5px;
   border-radius: 2px;
   align-items: center;
 
-  &.bp3-intent {
+  &.bp5-intent {
     &-primary {
       background-color: var(--toastPrimaryBg);
     }
@@ -37,7 +37,7 @@
 }
 
 @media screen and (max-width: 390px) {
-  .bp3-toast {
+  .bp5-toast {
     min-height: 30px;
     font-size: 13px;
 
@@ -45,7 +45,7 @@
       padding: 5px 11px;
     }
 
-    .bp3-button-group {
+    .bp5-button-group {
       padding: 0 5px;
     }
   }
