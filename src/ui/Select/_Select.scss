@@ -1,5 +1,5 @@
 .bitfinex-select {
-  .bp3-button {
+  .bp5-button {
     min-width: 180px;
     width: fit-content;
     height: 34px;
@@ -15,7 +15,7 @@
     }
   }
 
-  &--language .bp3-button {
+  &--language .bp5-button {
     width: 140px;
 
     &:active, &:hover {
@@ -23,7 +23,7 @@
     }
   }
 
-  &--balance-precision .bp3-button {
+  &--balance-precision .bp5-button {
     width: 150px;
 
     &:active, &:hover {
@@ -31,7 +31,7 @@
     }
   }
 
-  &--unrealized-profit .bp3-button {
+  &--unrealized-profit .bp5-button {
     width: 160px;
 
     &:active, &:hover {
@@ -39,25 +39,25 @@
     }
   }
 
-  &--report-type .bp3-button {
+  &--report-type .bp5-button {
     width: fit-content;
 
     &:active, &:hover {
       border: none;
     }
 
-    .bp3-button-text {
+    .bp5-button-text {
       display: flex;
       align-items: center;
       justify-content: space-between;
      
-      .bp3-popover-wrapper {
+      .bp5-popover-wrapper {
         display: none;
       }
     }
   }
 
-  &--timeframe .bp3-button {
+  &--timeframe .bp5-button {
     width: 100px;
 
     &:active, &:hover {
@@ -66,16 +66,16 @@
   }
 
   &-menu {
-    .bp3-popover-content {
+    .bp5-popover-content {
       width: fit-content;
       height: 100%;
       margin-bottom: -5px;
       padding: 0;
 
-      .bp3-input-group {
+      .bp5-input-group {
         color: var(--color);
 
-        .bp3-input {
+        .bp5-input {
           height: 30px;
           border-radius: 2px;
         }
@@ -83,53 +83,53 @@
     }
 
     &--symbol, &--pair {
-      .bp3-popover-content {
+      .bp5-popover-content {
         min-width: 180px;
         width: fit-content;
       }
     }
 
-    &--language .bp3-popover-content {
+    &--language .bp5-popover-content {
       width: 140px;
 
-      .bp3-menu {
+      .bp5-menu {
         min-width: unset;
       }
     }
 
-    &--unrealized-profit .bp3-popover-content {
+    &--unrealized-profit .bp5-popover-content {
       width: 160px;
 
-      .bp3-menu {
+      .bp5-menu {
         min-width: unset;
       }
     }
 
-    &--balance-precision .bp3-popover-content {
+    &--balance-precision .bp5-popover-content {
       width: 150px;
 
-      .bp3-menu {
+      .bp5-menu {
         min-width: unset;
       }
     }
 
-    &--report-type .bp3-popover-content {
+    &--report-type .bp5-popover-content {
       width: fit-content;
 
-      .bp3-menu {
+      .bp5-menu {
         min-width: unset;
       }
     }
 
-    &--timeframe .bp3-popover-content {
+    &--timeframe .bp5-popover-content {
       width: 100px;
 
-      .bp3-menu {
+      .bp5-menu {
         min-width: unset;
       }
     }
 
-    .bp3-menu {
+    .bp5-menu {
       width: 100%;
       height: 100%;
       padding: 0;
@@ -146,7 +146,7 @@
       }
 
       li:last-child {
-        .bp3-menu-item {
+        .bp5-menu-item {
           border-bottom: none;
         }
       }
@@ -159,12 +159,12 @@
         border-bottom: 1px solid var(--borderColor);
         border-radius: 0;
 
-        .bp3-fill {
+        .bp5-fill {
           display: flex;
           align-items: center;
           justify-content: space-between;
 
-          .bp3-popover-wrapper {
+          .bp5-popover-wrapper {
             opacity: 0.8;
             margin-left: 10px;
             margin-bottom: -4px;
@@ -172,7 +172,7 @@
           }
         }
 
-        .bp3-text-overflow-ellipsis {
+        .bp5-text-overflow-ellipsis {
           white-space: normal;
         }
 
@@ -189,7 +189,7 @@
             background-color: var(--multiQueriedHoverBg);
             color: var(--multiQueriedColor);
 
-            .bp3-menu-item-label {
+            .bp5-menu-item-label {
               color: var(--multiQueriedColor);
             }
           }
@@ -199,7 +199,7 @@
           background-color: var(--multiHoverBg);
           color: var(--activeColor);
 
-          .bp3-menu-item-label {
+          .bp5-menu-item-label {
             color: var(--activeColor);
           }
         }
@@ -208,7 +208,7 @@
           background-color: var(--multiSelectedBg);
           color: var(--multiSelectedColor);
 
-          .bp3-menu-item-label {
+          .bp5-menu-item-label {
             color: var(--multiSelectedColor);
           }
 
@@ -216,17 +216,17 @@
             background-color: var(--multiSelectedHoverBg);
             color: var(--multiSelectedColor);
 
-            .bp3-menu-item-label {
+            .bp5-menu-item-label {
               color: var(--multiSelectedColor);
             }
           }
         }
 
-        &.bp3-active {
+        &.bp5-active {
           background-color: var(--multiActiveBg);
           color: var(--multiActiveColor);
 
-          .bp3-menu-item-label {
+          .bp5-menu-item-label {
             color: var(--multiActiveColor);
           }
 
@@ -234,7 +234,7 @@
             background-color: var(--multiActiveHoverBg);
             color: var(--multiActiveHoverColor);
 
-            .bp3-menu-item-label {
+            .bp5-menu-item-label {
               color: var(--multiActiveHoverColor);
             }
           }
@@ -243,16 +243,16 @@
     }
   }
 
-  .bp3-popover-open {
+  .bp5-popover-open {
     input::placeholder {
       color: var(--activeColor);
     }
 
-    .bp3-button {
+    .bp5-button {
       color: var(--activeColor);
     }
 
-    .bp3-multi-select-arrow path {
+    .bp5-multi-select-arrow path {
       fill: var(--activeColor);
     }
   }
@@ -265,7 +265,7 @@
 .disabled {
   pointer-events: none;
 
-  .bp3-button  {
+  .bp5-button  {
     color: var(--color2);
 
     svg path {
@@ -274,7 +274,7 @@
   }
 }
 
-.bp3-html-select.bp3-minimal {
+.bp5-html-select.bp5-minimal {
   select {
     color: var(--color);
 
@@ -291,36 +291,36 @@
 
 @media screen and (min-width: 2560px) {
   .bitfinex-select {
-    .bp3-button {
+    .bp5-button {
       width: 210px;
       height: 50px;
     }
 
-    &--language .bp3-button {
+    &--language .bp5-button {
       width: 160px;
     }
 
-    &--timeframe .bp3-button {
+    &--timeframe .bp5-button {
       width: 120px;
     }
 
     &-menu {
-      .bp3-popover-content {
+      .bp5-popover-content {
         width: 253px;
 
-        .bp3-input-group {
+        .bp5-input-group {
           svg:first-child {
             width: 20px;
             height: 20px;
             margin-top: 10px;
           }
 
-          .bp3-input {
+          .bp5-input {
             height: 40px;
             font-size: 18px;
           }
 
-          .bp3-icon-cross svg {
+          .bp5-icon-cross svg {
             width: 20px;
             height: 20px;
             margin-top: 6px;
@@ -329,20 +329,20 @@
       }
 
       &--symbol, &--pair {
-        .bp3-popover-content {
+        .bp5-popover-content {
           width: 210px;
         }
       }
 
-      &--language .bp3-popover-content {
+      &--language .bp5-popover-content {
         width: 160px;
       }
 
-      &--timeframe .bp3-popover-content {
+      &--timeframe .bp5-popover-content {
         width: 120px;
       }
 
-      .bp3-menu {
+      .bp5-menu {
         &-item {
           padding: 6px 15px;
 
@@ -358,7 +358,7 @@
 
 @media screen and (max-width: 576px) {
   .bitfinex-select {
-    .bp3-button {
+    .bp5-button {
       min-width: fit-content;
     }
   }
@@ -366,7 +366,7 @@
 
 @media screen and (max-width: 390px) {
   .bitfinex-select {
-    .bp3-button {
+    .bp5-button {
       width: 150px;
     }
   }
