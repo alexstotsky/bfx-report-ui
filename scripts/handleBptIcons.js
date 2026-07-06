@@ -59,3 +59,6 @@ writeStream.once('open', () => {
   writeStream.write('//# sourceMappingURL=iconSvgPaths.js.map')
   writeStream.end()
 })
+
+// vite dev dep cache is keyed on the lockfile, not dep file contents, purge it after the mutation
+fs.rmSync('./node_modules/.vite', { recursive: true, force: true })
