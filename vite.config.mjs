@@ -55,8 +55,8 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          loadPaths: [r('src')],           // bare @import "components/...", "icons/...", "ui/...", "themes"
-          quietDeps: true,                 // Blueprint v3 scss uses legacy division syntax
+          loadPaths: [r('src')], // bare @import "components/...", "icons/...", "ui/...", "themes"
+          quietDeps: true, // Blueprint v3 scss uses legacy division syntax
           silenceDeprecations: ['import'], // own @import usage under dart-sass 1.80+
         },
       },
@@ -69,6 +69,7 @@ export default defineConfig(({ mode }) => {
       outDir: 'build',
       target: browserslistToEsbuild(),
       sourcemap: true,
+      chunkSizeWarningLimit: 600, // entry chunk is pure app code (~570 kB), shrinks only via route-level code splitting
       rollupOptions: {
         output: { // CRA layout replica so infra rules targeting /static/* keep working
           entryFileNames: 'static/js/[name].[hash].js',
@@ -79,12 +80,25 @@ export default defineConfig(({ mode }) => {
               ? 'static/css/[name].[hash][extname]'
               : 'static/media/[name].[hash][extname]'
           },
+          // stable vendor chunks survive app releases in the browser cache;
+          // path-based matching keeps every file of a package (incl. its CJS internals)
+          // in one chunk, the object form leaves them unassigned and creates chunk cycles
+          manualChunks: (id) => {
+            if (!id.includes('node_modules')) return undefined
+            if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react'
+            if (/node_modules\/(moment|moment-timezone)\//.test(id)) return 'moment'
+            if (/node_modules\/(recharts|lightweight-charts|d3-[^/]+)\//.test(id)) return 'charts'
+            if (/node_modules\/[^/]*i18next[^/]*\//.test(id)) return 'i18n'
+            if (/node_modules\/(redux|redux-[^/]+|react-redux|react-router(-dom)?|history)\//.test(id)) return 'redux'
+            if (id.includes('node_modules/@blueprintjs/')) return 'blueprint'
+            return 'vendor'
+          },
         },
       },
     },
     test: {
-      globals: true,          // bare describe/it/expect like Jest
-      environment: 'jsdom',   // parity with the former --env=jsdom
+      globals: true, // bare describe/it/expect like Jest
+      environment: 'jsdom', // parity with the former --env=jsdom
       setupFiles: ['./vitest.setup.js'],
       include: ['src/**/__tests__/**/*.test.js'],
     },
