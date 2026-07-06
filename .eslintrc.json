@@ -38,5 +38,14 @@
   "env": {
     "browser": true,
     "jest": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["vite.config.mjs", "vitest.setup.js"],
+      "rules": {
+        "import/no-unresolved": 0,
+        "import/no-extraneous-dependencies": [2, { "devDependencies": true }]
+      }
+    }
+  ]
 }
