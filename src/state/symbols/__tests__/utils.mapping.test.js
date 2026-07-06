@@ -1,3 +1,5 @@
+import { vi } from 'vitest'
+
 import {
   mapSymbol,
   mapPair,
@@ -9,7 +11,7 @@ import {
   mapRequestPairs,
 } from '../utils/mapping'
 
-jest.mock('../map')
+vi.mock('../map')
 
 describe('mapSymbol', () => {
   it('BAB -> BCH', () => {
