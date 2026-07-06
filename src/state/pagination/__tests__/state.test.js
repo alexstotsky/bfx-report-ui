@@ -1,9 +1,11 @@
+import { vi } from 'vitest'
+
 import queryTypes from 'state/query/constants'
 
 import actions from '../actions'
 import reducer, { initialState } from '../reducer'
 
-jest.mock('state/query/utils')
+vi.mock('state/query/utils')
 
 const TYPE = queryTypes.MENU_LEDGERS
 
