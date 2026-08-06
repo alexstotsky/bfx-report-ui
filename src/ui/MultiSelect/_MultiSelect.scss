@@ -1,9 +1,9 @@
-.bp3-multi-select {
+.bp5-multi-select {
   position: relative;
   min-width: 223px;
   min-height: 34px;
 
-  &.bp3-input {
+  &.bp5-input {
     box-shadow: none;
     background-color: var(--multiBg);
     border: none;
@@ -28,8 +28,8 @@
     }
   }
 
-  .bp3-tag-input-values {
-    .bp3-tag {
+  .bp5-tag-input-values {
+    .bp5-tag {
       background-color: var(--multiTagBg);
       color: var(--multiTagColor);
       cursor: pointer;
@@ -52,12 +52,12 @@
 .disabled {
   pointer-events: none;
 
-  .bp3-input {
+  .bp5-input {
     svg path {
       fill: var(--color2);
     }
 
-    .bp3-tag-input-values {
+    .bp5-tag-input-values {
       input::placeholder {
         color: var(--color2);
       }
@@ -66,7 +66,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-  .bp3-multi-select {
+  .bp5-multi-select {
     min-width: 253px;
     min-height: 50px;
 
@@ -74,8 +74,8 @@
       font-size: 18px;
     }
 
-    .bp3-tag-input-values {
-      .bp3-tag {
+    .bp5-tag-input-values {
+      .bp5-tag {
         span {
           font-size: 16px;
         }
@@ -90,7 +90,7 @@
 
 
 @media screen and (max-width: 390px) {
-  .bp3-multi-select {
+  .bp5-multi-select {
     min-width: 150px;
   }
 }
