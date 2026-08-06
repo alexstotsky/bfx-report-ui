@@ -1,10 +1,10 @@
-.bp3-datepicker {
+.bp5-datepicker {
   background-color: var(--bgColor2);
   border: 1px solid var(--borderColor);
   border-radius: 4px;
   padding: 15px;
 
-  .bp3-timepicker {
+  .bp5-timepicker {
     &-input-row {
       background-color: var(--bgColor);
     }
@@ -17,7 +17,7 @@
 }
 
 .date-input-popover {
-  .bp3-input {
+  .bp5-input {
     height: 34px;
     cursor: pointer;
 
@@ -27,15 +27,15 @@
     }
   }
 
-  .bp3-disabled {
-    .bp3-input-action {
+  .bp5-disabled {
+    .bp5-input-action {
       svg path {
         fill: var(--color2);
       }
     }
   }
 
-  .bp3-input-action {
+  .bp5-input-action {
     padding-right: 8px;
     pointer-events: none;
 
@@ -52,9 +52,9 @@
   }
 }
 
-.bp3-popover {
+.bp5-popover {
   &-open {
-    .bp3-input {
+    .bp5-input {
       color: var(--activeColor);
 
       &::placeholder {
@@ -63,19 +63,19 @@
     }
   }
 
-  &.bp3-dateinput-popover {
+  &.bp5-dateinput-popover {
     margin-top: 5px !important;
   }
 }
 
 @media screen and (min-width: 2560px) {
   .date-input-popover {
-    .bp3-input {
+    .bp5-input {
       height: 50px;
       font-size: 18px;
     }
 
-    .bp3-input-action {
+    .bp5-input-action {
       svg {
         height: 50px;
         line-height: 50px;
@@ -83,9 +83,9 @@
     }
   }
 
-  .bp3-datepicker {
+  .bp5-datepicker {
     .DayPicker {
-      .bp3-datepicker {
+      .bp5-datepicker {
         &-month-select, &-year-select {
           select {
             font-size: 18px;
