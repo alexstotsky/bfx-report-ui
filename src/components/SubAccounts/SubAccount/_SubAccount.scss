@@ -18,7 +18,7 @@
   &-controls {
     margin-bottom: 30px;
 
-    .bp3-button {
+    .bp5-button {
       margin-top: 0;
     }
   }
@@ -29,14 +29,14 @@
 
   &-select {
     &.bitfinex-select {
-      .bp3-button {
+      .bp5-button {
         width: 380px;
       }
     }
 
     &-popover {
       &.bitfinex-select-menu {
-        .bp3-popover-content {
+        .bp5-popover-content {
           width: 380px;
         }
       }
