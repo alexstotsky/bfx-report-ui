@@ -9,7 +9,7 @@
   &--popover {
     box-shadow: 0 0 1px var(--menuPopoverShadow);
 
-    .bp3-popover-content {
+    .bp5-popover-content {
       height: calc(100vh - 160px);
       overflow: auto;
 
@@ -34,7 +34,7 @@
     }
   }
 
-  .bp3-menu-item {
+  .bp5-menu-item {
     display: flex;
     align-items: center;
     width: 100%;
@@ -47,8 +47,8 @@
     color: var(--color2);
     white-space: normal;
 
-    .bp3-fill,
-    .bp3-text-overflow-ellipsis {
+    .bp5-fill,
+    .bp5-text-overflow-ellipsis {
       white-space: normal;
       overflow: visible;
       text-overflow: unset;
@@ -74,7 +74,7 @@
       line-height: 1.3;
       padding: 0 10px 0 15px;
 
-      .bp3-menu-item-label {
+      .bp5-menu-item-label {
         display: flex;
         align-items: center;
       }
@@ -92,7 +92,7 @@
       width: 160px;
     }
 
-    &.bp3-active {
+    &.bp5-active {
       background-color: var(--menuActive);
       border-right: 2px solid var(--menuActiveBorder);
       color: var(--activeColor);
@@ -112,7 +112,7 @@
     }
   }
 
-  .bp3-menu-divider {
+  .bp5-menu-divider {
     margin: 0;
     border-top: 1px solid var(--borderColor);
   }
@@ -126,7 +126,7 @@
       margin-right: 9px;
     }
 
-    .bp3-fill {
+    .bp5-fill {
       width: 160px;
     }
   }
@@ -136,7 +136,7 @@
     width: 100vw;
     margin-top: 15px;
 
-    .bp3-menu {
+    .bp5-menu {
       &-item {
         height: 40px;
         line-height: 40px;
@@ -160,7 +160,7 @@
   .bitfinex-nav-menu {
     width: 275px;
 
-    .bp3-menu {
+    .bp5-menu {
       &-item {
         min-height: 52px;
         height: auto;
@@ -189,7 +189,7 @@
       display: block;
     }
 
-    .bp3-menu-item {
+    .bp5-menu-item {
       div {
         width: calc(100% - 38px);
       }
