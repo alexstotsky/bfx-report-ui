@@ -11,57 +11,43 @@ import Loading from 'ui/Loading'
 import NavMenu from 'ui/NavMenu'
 import config from 'config'
 
-const Trades = lazyLoad(() => import(/* webpackChunkName: 'trades' */ 'components/Trades'))
-const Orders = lazyLoad(() => import(/* webpackChunkName: 'orders' */ 'components/Orders'))
-const Logins = lazyLoad(() => import(/* webpackChunkName: 'logins' */ 'components/Logins'))
-const Ledgers = lazyLoad(() => import(/* webpackChunkName: 'ledgers' */ 'components/Ledgers'))
-const Candles = lazyLoad(() => import(/* webpackChunkName: 'candles' */ 'components/Candles'))
-const Wallets = lazyLoad(() => import(/* webpackChunkName: 'wallets' */ 'components/Wallets'))
-const Tickers = lazyLoad(() => import(/* webpackChunkName: 'tickers' */ 'components/Tickers'))
-const Movements = lazyLoad(() => import(/* webpackChunkName: 'movements' */ 'components/Movements'))
-const Positions = lazyLoad(() => import(/* webpackChunkName: 'positions' */ 'components/Positions'))
-const Snapshots = lazyLoad(() => import(/* webpackChunkName: 'snapshots' */ 'components/Snapshots'))
-const TaxReport = lazyLoad(() => import(/* webpackChunkName: 'tax-report' */ 'components/TaxReport'))
-const AppSummary = lazyLoad(() => import(/* webpackChunkName: 'app-summary' */ 'components/AppSummary'))
-const ChangeLogs = lazyLoad(() => import(/* webpackChunkName: 'change-logs' */ 'components/ChangeLogs'))
-const FeesReport = lazyLoad(() => import(/* webpackChunkName: 'fees-report' */ 'components/FeesReport'))
-const LoanReport = lazyLoad(() => import(/* webpackChunkName: 'loan-report' */ 'components/LoanReport'))
-const Derivatives = lazyLoad(() => import(/* webpackChunkName: 'derivatives' */ 'components/Derivatives'))
-const OrderTrades = lazyLoad(() => import(/* webpackChunkName: 'order-trades' */ 'components/OrderTrades'))
-const SubAccounts = lazyLoad(() => import(/* webpackChunkName: 'sub-accounts' */ 'components/SubAccounts'))
-const PublicTrades = lazyLoad(() => import(/* webpackChunkName: 'public-trades' */ 'components/PublicTrades'))
-const TradedVolume = lazyLoad(() => import(/* webpackChunkName: 'traded-volume' */ 'components/TradedVolume'))
-const PublicFunding = lazyLoad(() => import(/* webpackChunkName: 'public-funding' */ 'components/PublicFunding'))
-const AccountBalance = lazyLoad(() => import(/* webpackChunkName: 'account-balance' */ 'components/AccountBalance'))
-const AccountSummary = lazyLoad(() => import(/* webpackChunkName: 'account-summary' */ 'components/AccountSummary'))
-const FundingPayment = lazyLoad(() => import(/* webpackChunkName: 'funding-payment' */ 'components/FundingPayment'))
-const PositionsAudit = lazyLoad(() => import(/* webpackChunkName: 'positions-audit' */ 'components/PositionsAudit'))
-const AverageWinLoss = lazyLoad(() => import(/* webpackChunkName: 'average-win-loss' */ 'components/AverageWinLoss'))
-const PositionsActive = lazyLoad(() => import(/* webpackChunkName: 'positions-active' */ 'components/PositionsActive'))
-const StakingPayments = lazyLoad(() => import(/* webpackChunkName: 'staking-payments' */ 'components/StakingPayments'))
-const WeightedAverages = lazyLoad(
-  () => import(/* webpackChunkName: 'weighted-averages' */ 'components/WeightedAverages'),
-)
-const ConcentrationRisk = lazyLoad(
-  () => import(/* webpackChunkName: 'concentration-risk' */ 'components/ConcentrationRisk'),
-)
-const AffiliatesEarnings = lazyLoad(
-  () => import(/* webpackChunkName: 'affiliates-earnings' */ 'components/AffiliatesEarnings'),
-)
-const FundingLoanHistory = lazyLoad(
-  () => import(/* webpackChunkName: 'funding-loan-history' */ 'components/FundingLoanHistory'),
-)
-const FundingOfferHistory = lazyLoad(
-  () => import(/* webpackChunkName: 'funding-offer-history' */ 'components/FundingOfferHistory'),
-)
-const FundingCreditHistory = lazyLoad(
-  () => import(/* webpackChunkName: 'funding-credit-history' */ 'components/FundingCreditHistory'),
-)
-const PositionsAuditNoId = lazyLoad(
-  () => import(/* webpackChunkName: 'positions-audit-no-id' */ 'components/PositionsAudit/PositionsAudit.NoId'),
-)
+const Trades = lazyLoad(() => import('components/Trades'))
+const Orders = lazyLoad(() => import('components/Orders'))
+const Logins = lazyLoad(() => import('components/Logins'))
+const Ledgers = lazyLoad(() => import('components/Ledgers'))
+const Candles = lazyLoad(() => import('components/Candles'))
+const Wallets = lazyLoad(() => import('components/Wallets'))
+const Tickers = lazyLoad(() => import('components/Tickers'))
+const Movements = lazyLoad(() => import('components/Movements'))
+const Positions = lazyLoad(() => import('components/Positions'))
+const Snapshots = lazyLoad(() => import('components/Snapshots'))
+const TaxReport = lazyLoad(() => import('components/TaxReport'))
+const AppSummary = lazyLoad(() => import('components/AppSummary'))
+const ChangeLogs = lazyLoad(() => import('components/ChangeLogs'))
+const FeesReport = lazyLoad(() => import('components/FeesReport'))
+const LoanReport = lazyLoad(() => import('components/LoanReport'))
+const Derivatives = lazyLoad(() => import('components/Derivatives'))
+const OrderTrades = lazyLoad(() => import('components/OrderTrades'))
+const SubAccounts = lazyLoad(() => import('components/SubAccounts'))
+const PublicTrades = lazyLoad(() => import('components/PublicTrades'))
+const TradedVolume = lazyLoad(() => import('components/TradedVolume'))
+const PublicFunding = lazyLoad(() => import('components/PublicFunding'))
+const AccountBalance = lazyLoad(() => import('components/AccountBalance'))
+const AccountSummary = lazyLoad(() => import('components/AccountSummary'))
+const FundingPayment = lazyLoad(() => import('components/FundingPayment'))
+const PositionsAudit = lazyLoad(() => import('components/PositionsAudit'))
+const AverageWinLoss = lazyLoad(() => import('components/AverageWinLoss'))
+const PositionsActive = lazyLoad(() => import('components/PositionsActive'))
+const StakingPayments = lazyLoad(() => import('components/StakingPayments'))
+const WeightedAverages = lazyLoad(() => import('components/WeightedAverages'))
+const ConcentrationRisk = lazyLoad(() => import('components/ConcentrationRisk'))
+const AffiliatesEarnings = lazyLoad(() => import('components/AffiliatesEarnings'))
+const FundingLoanHistory = lazyLoad(() => import('components/FundingLoanHistory'))
+const FundingOfferHistory = lazyLoad(() => import('components/FundingOfferHistory'))
+const FundingCreditHistory = lazyLoad(() => import('components/FundingCreditHistory'))
+const PositionsAuditNoId = lazyLoad(() => import('components/PositionsAudit/PositionsAudit.NoId'))
 
-const MainDialogs = lazyLoad(() => import(/* webpackChunkName: 'main-dialogs' */ './Main.dialogs'))
+const MainDialogs = lazyLoad(() => import('./Main.dialogs'))
 
 const { showFrameworkMode } = config
 
