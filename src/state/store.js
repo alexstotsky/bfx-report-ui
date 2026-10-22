@@ -19,7 +19,7 @@ function configureStore() {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   // add middlewares here
   const middleware = [sagaMiddleware, routerMiddleware]
-  // use the logger in development mode - this is set in webpack.config.dev.js
+  // use the logger in development and staging modes
   if (REACT_APP_ENV === 'development' || REACT_APP_ENV === 'staging') {
     middleware.push(createLogger())
   }
