@@ -78,10 +78,6 @@ html {
   scrollbar-color: var(--tableScrollThumbBg) var(--tableScrollBg);
 }
 
-#webpack-dev-server-client-overlay {
-  display: none !important;
-}
-
 // hide the invisible reCAPTCHA badge
 .grecaptcha-badge {
   visibility: hidden;
