@@ -70,12 +70,11 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.32.2",
     "husky": "9.1.7",
-    "jest-junit": "17.0.0",
     "jsdom": "29.1.1",
     "source-map-explorer": "2.5.3",
-    "vite": "7.3.6",
+    "vite": "7.3.7",
     "vite-plugin-svgr": "5.2.0",
-    "vitest": "4.1.10"
+    "vitest": "4.1.12"
   },
   "scripts": {
     "prepare": "node scripts/copyFiles && node scripts/handleBptIcons && husky",
@@ -84,18 +83,13 @@
     "startAllWeb": "concurrently \"npm run start\" \"npm run --prefix ../bfx-report startSimulEnv\" \"npm run --prefix ../bfx-report startServDev\" \"npm run --prefix ../bfx-report startDev\"",
     "build": "npm run prepare && npm run lint && cross-env REACT_APP_ENV=$CI_ENVIRONMENT_NAME vite build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "test": "npm run lint && cross-env REACT_APP_ENV=testing vitest run --reporter=verbose",
+    "test": "npm run lint && vitest run --reporter=verbose",
     "lint": "eslint src scripts --ignore-path .gitignore",
     "lintFix": "eslint src scripts --fix --ignore-path .gitignore"
   },
   "engines": {
     "node": ">=20.19.0",
     "npm": ">=9.6.7"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!(query-string|decode-uri-component|split-on-first|filter-obj)/)"
-    ]
   },
   "browserslist": [
     ">0.2%",
@@ -105,10 +99,6 @@
   ],
   "overrides": {
     "html-parse-stringify2": "2.0.2",
-    "shell-quote": "1.12.0",
-    "@tootallnate/once": "2.0.1",
-    "sockjs": {
-      "uuid": "11.1.1"
-    }
+    "shell-quote": "1.12.0"
   }
 }
