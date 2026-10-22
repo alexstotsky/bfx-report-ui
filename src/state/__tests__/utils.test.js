@@ -1,3 +1,5 @@
+import { vi } from 'vitest'
+
 import queryConstants from 'state/query/constants'
 
 import { checkInit, getQueryWithoutParams } from '../utils'
@@ -8,8 +10,8 @@ const buildProps = (props = {}) => ({
   dataReceived: true,
   pageLoading: false,
   isSyncRequired: false,
-  fetchData: jest.fn(),
-  setTargetIds: jest.fn(),
+  fetchData: vi.fn(),
+  setTargetIds: vi.fn(),
   match: { params: { id: '1,2,3' } },
   targetIds: ['1', '2', '3'],
   ...props,
