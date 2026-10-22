@@ -25,9 +25,7 @@ jobs:
     - name: Install deps
       run: npm ci && npm run prepare
     - name: Run tests
-      run: npm test -- --reporters=default --reporters=jest-junit
-      env:
-        JEST_JUNIT_OUTPUT_NAME: test-report.xml
+      run: npm test -- --reporter=junit --outputFile.junit=test-report.xml
     - uses: actions/upload-artifact@v7.0.0
       if: success() || failure()
       with:
