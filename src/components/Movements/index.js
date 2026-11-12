@@ -1,1 +1,1 @@
-export { default } from './Movements.container'
+export { default } from './Movements'
