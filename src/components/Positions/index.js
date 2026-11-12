@@ -1,1 +1,1 @@
-export { default } from './Positions.container'
+export { default } from './Positions'
