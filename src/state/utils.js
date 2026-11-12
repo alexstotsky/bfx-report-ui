@@ -13,7 +13,7 @@ import {
   getPath, getIsSyncRequiredType, TYPE_WHITELIST, ROUTE_WHITELIST,
 } from 'state/query/utils'
 import {
-  getSymbolsURL, formatPair, demapSymbols, demapPairs, mapSymbol, getMappedSymbolsFromUrl,
+  getSymbolsURL, formatPair, demapPairs, mapSymbol, getMappedSymbolsFromUrl,
 } from 'state/symbols/utils'
 import { getApiUrl } from 'state/base/selectors'
 import { selectAuth } from 'state/auth/selectors'
@@ -355,24 +355,6 @@ export function generateUrl(type, params, symbols) {
     : `${path}${params}`
 }
 
-export function toggleSymbol(type, props, symbol) {
-  const {
-    history, targetSymbols, addTargetSymbol, removeTargetSymbol,
-  } = props
-
-  let nextSymbols
-
-  if (!targetSymbols.includes(symbol)) {
-    nextSymbols = [...targetSymbols, symbol]
-    addTargetSymbol(symbol)
-  } else {
-    nextSymbols = targetSymbols.filter(tag => symbol !== tag)
-    removeTargetSymbol(symbol)
-  }
-
-  history.push(generateUrl(type, window.location.search, demapSymbols(nextSymbols)))
-}
-
 export function setPair(type, props, pair) {
   const {
     history, targetPair, setTargetPair,
@@ -387,12 +369,6 @@ export function setPair(type, props, pair) {
 export const clearAllPairs = (type, props) => {
   const { history, clearTargetPairs } = props
   clearTargetPairs()
-  history.push(generateUrl(type, window.location.search))
-}
-
-export const clearAllSymbols = (type, props) => {
-  const { history, clearTargetSymbols } = props
-  clearTargetSymbols()
   history.push(generateUrl(type, window.location.search))
 }
 
@@ -552,7 +528,6 @@ export const getWalletsEntries = entries => entries.map((entry) => {
 export default {
   checkFetch,
   clearAllPairs,
-  clearAllSymbols,
   DEFAULT_DATETIME_FORMAT,
   getQueryWithoutParams,
   makeFetchCall,
