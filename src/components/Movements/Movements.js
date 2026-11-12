@@ -1,194 +1,169 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useRouteMatch } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Card, Elevation } from '@blueprintjs/core'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
 import DataTable from 'ui/DataTable'
+import TimeRange from 'ui/TimeRange'
 import Pagination from 'ui/Pagination'
-import SectionHeader from 'ui/SectionHeader'
-import queryConstants from 'state/query/constants'
 import {
-  checkInit,
-  checkFetch,
-  toggleSymbol,
-  clearAllSymbols,
-} from 'state/utils'
+  SectionHeader,
+  SectionHeaderRow,
+  SectionHeaderItem,
+  SectionHeaderTitle,
+  SectionHeaderItemLabel,
+} from 'ui/SectionHeader'
+import ColumnsFilter from 'ui/ColumnsFilter'
+import ClearFiltersButton from 'ui/ClearFiltersButton'
+import MultiSymbolSelector from 'ui/MultiSymbolSelector'
+import {
+  fetchMovements,
+  addTargetSymbol,
+  getMovementInfo,
+  setTargetSymbols,
+  removeTargetSymbol,
+  clearTargetSymbols,
+} from 'state/movements/actions'
+import {
+  getEntries,
+  getPageLoading,
+  getDataReceived,
+  getExistingCoins,
+  getTargetSymbols,
+} from 'state/movements/selectors'
+import queryConstants from 'state/query/constants'
+import { getColumns } from 'state/filters/selectors'
+import { getTetherNames } from 'state/symbols/selectors'
+import { getIsSyncRequired } from 'state/sync/selectors'
+import { getColumnsWidth } from 'state/columns/selectors'
+import { getFilteredEntries } from 'state/pagination/selectors'
+import { getFullTime, getTimeOffset } from 'state/base/selectors'
+import useSymbolFilter from 'hooks/useSymbolFilter'
+import useFetchLifecycle from 'hooks/useFetchLifecycle'
 
-import getColumns from './Movements.columns'
+import getTableColumns from './Movements.columns'
 
 const TYPE = queryConstants.MENU_MOVEMENTS
 
-class Movements extends PureComponent {
-  static propTypes = {
-    columns: PropTypes.shape({
-      amount: PropTypes.bool,
-      amountUsd: PropTypes.bool,
-      currency: PropTypes.bool,
-      destinationAddress: PropTypes.bool,
-      fees: PropTypes.bool,
-      id: PropTypes.bool,
-      moreDetails: PropTypes.bool,
-      mtsStarted: PropTypes.bool,
-      mtsUpdated: PropTypes.bool,
-      note: PropTypes.bool,
-      status: PropTypes.bool,
-      transactionId: PropTypes.bool,
-    }),
-    tetherNames: PropTypes.shape({
-      TESTUSDT: PropTypes.string,
-      TESTUSDTF0: PropTypes.string,
-      UST: PropTypes.string,
-      USDTKSM: PropTypes.string,
-      USTF0: PropTypes.string,
-      USDTAVAX: PropTypes.string,
-      USDTALG: PropTypes.string,
-      USDTBCH: PropTypes.string,
-      USS: PropTypes.string,
-      USE: PropTypes.string,
-      USDTKAVA: PropTypes.string,
-      USDTNEAR: PropTypes.string,
-      USDTDOT: PropTypes.string,
-      USDTPLY: PropTypes.string,
-      USDTSOL: PropTypes.string,
-      USDTXTZ: PropTypes.string,
-      USX: PropTypes.string,
-      USDTZK: PropTypes.string,
-    }),
-    columnsWidth: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired,
-    })),
-    entries: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      currency: PropTypes.string,
-      mtsStarted: PropTypes.number,
-      mtsUpdated: PropTypes.number,
-      status: PropTypes.string,
-      amount: PropTypes.number,
-      destinationAddress: PropTypes.string,
-    })),
-    jumpPage: PropTypes.func,
-    existingCoins: PropTypes.arrayOf(PropTypes.string),
-    getFullTime: PropTypes.func.isRequired,
-    getMovementInfo: PropTypes.func.isRequired,
-    dataReceived: PropTypes.bool.isRequired,
-    pageLoading: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
-    targetSymbols: PropTypes.arrayOf(PropTypes.string),
-    timeOffset: PropTypes.string.isRequired,
-  }
+const Movements = () => {
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const timeOffset = useSelector(getTimeOffset)
+  const getFullTimeFn = useSelector(getFullTime)
+  const tetherNames = useSelector(getTetherNames)
+  const pageLoading = useSelector(getPageLoading)
+  const match = useRouteMatch('/movements/:symbol')
+  const dataReceived = useSelector(getDataReceived)
+  const existingCoins = useSelector(getExistingCoins)
+  const isSyncRequired = useSelector(getIsSyncRequired)
+  const columns = useSelector(state => getColumns(state, TYPE))
+  const columnsWidth = useSelector(state => getColumnsWidth(state, TYPE))
+  const entries = useSelector(state => getFilteredEntries(state, TYPE, getEntries(state)))
 
-  static defaultProps = {
-    columns: {},
-    entries: [],
-    tetherNames: {},
-    columnsWidth: [],
-    existingCoins: [],
-    targetSymbols: [],
-    jumpPage: () => {},
-  }
+  useFetchLifecycle(TYPE, {
+    match,
+    pageLoading,
+    dataReceived,
+    isSyncRequired,
+    fetchData: () => dispatch(fetchMovements()),
+    setTargetSymbols: (s) => dispatch(setTargetSymbols(s)),
+  })
 
-  componentDidMount() {
-    checkInit(this.props, TYPE)
-    const {
-      dataReceived, pageLoading, jumpPage,
-    } = this.props
-    // workaround for managing pagination of movements from 2 points (deposits/withdrawals)
-    if (dataReceived || pageLoading) {
-      jumpPage(TYPE, 1)
-    }
-  }
+  const { targetSymbols, toggleSymbol, clearSymbols } = useSymbolFilter(TYPE, {
+    getTargetSymbols,
+    addTargetSymbol,
+    removeTargetSymbol,
+    clearTargetSymbols,
+  })
 
-  componentDidUpdate(prevProps) {
-    checkFetch(prevProps, this.props, TYPE)
-  }
-
-  toggleSymbol = symbol => toggleSymbol(TYPE, this.props, symbol)
-
-  clearSymbols = () => clearAllSymbols(TYPE, this.props)
-
-  showExtraInfo = (e, { id }) => {
-    const { getMovementInfo } = this.props
+  const showExtraInfo = useCallback((e, { id }) => {
     e.preventDefault()
-    getMovementInfo(id)
-  }
+    dispatch(getMovementInfo(id))
+  }, [dispatch])
 
-  render() {
-    const {
-      t,
-      columns,
-      entries,
-      timeOffset,
-      getFullTime,
-      pageLoading,
-      tetherNames,
-      columnsWidth,
-      dataReceived,
-      existingCoins,
-      targetSymbols,
-    } = this.props
-    const isNoData = isEmpty(entries)
-    const isLoading = !dataReceived && pageLoading
-    const tableColumns = getColumns({
-      t,
-      isNoData,
-      isLoading,
-      timeOffset,
-      tetherNames,
-      getFullTime,
-      columnsWidth,
-      filteredData: entries,
-      onDetailsClick: this.showExtraInfo,
-    }).filter(({ id }) => columns[id])
+  const isNoData = isEmpty(entries)
+  const isLoading = !dataReceived && pageLoading
+  const tableColumns = getTableColumns({
+    t,
+    isNoData,
+    isLoading,
+    timeOffset,
+    tetherNames,
+    columnsWidth,
+    filteredData: entries,
+    getFullTime: getFullTimeFn,
+    onDetailsClick: showExtraInfo,
+  }).filter(({ id }) => columns[id])
 
-    const title = 'movements.title'
-    let showContent
-    if (isNoData) {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            isNoData={isNoData}
-            isLoading={isLoading}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : 1}
-          />
-        </div>
-      )
-    } else {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : entries.length}
-          />
-          <Pagination
-            target={TYPE}
-            loading={pageLoading}
-          />
-        </div>
-      )
-    }
-    return (
-      <Card
-        elevation={Elevation.ZERO}
-        className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
-      >
-        <SectionHeader
-          title={title}
-          target={TYPE}
-          symbolsSelectorProps={{
-            currentFilters: targetSymbols,
-            existingCoins,
-            toggleSymbol: this.toggleSymbol,
-          }}
-          clearTargetSymbols={this.clearSymbols}
+  let showContent
+  if (isNoData) {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          isNoData={isNoData}
+          isLoading={isLoading}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : 1}
         />
-        {showContent}
-      </Card>
+      </div>
+    )
+  } else {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : entries.length}
+        />
+        <Pagination
+          target={TYPE}
+          loading={pageLoading}
+        />
+      </div>
     )
   }
+
+  return (
+    <Card
+      elevation={Elevation.ZERO}
+      className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
+    >
+      <SectionHeader>
+        <SectionHeaderTitle>
+          {t('movements.title')}
+        </SectionHeaderTitle>
+        <SectionHeaderRow>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.date')}
+            </SectionHeaderItemLabel>
+            <TimeRange className='section-header-time-range' />
+          </SectionHeaderItem>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.symbol')}
+            </SectionHeaderItemLabel>
+            <MultiSymbolSelector
+              existingCoins={existingCoins}
+              currentFilters={targetSymbols}
+              toggleSymbol={toggleSymbol}
+            />
+          </SectionHeaderItem>
+          <ClearFiltersButton onClick={clearSymbols} />
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.columns')}
+            </SectionHeaderItemLabel>
+            <ColumnsFilter target={TYPE} />
+          </SectionHeaderItem>
+        </SectionHeaderRow>
+      </SectionHeader>
+      {showContent}
+    </Card>
+  )
 }
 
 export default Movements
