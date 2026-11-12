@@ -1,166 +1,171 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Card, Elevation } from '@blueprintjs/core'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
 import DataTable from 'ui/DataTable'
+import TimeRange from 'ui/TimeRange'
 import Pagination from 'ui/Pagination'
-import { getPath } from 'state/query/utils'
-import SectionHeader from 'ui/SectionHeader'
-import queryConstants from 'state/query/constants'
 import {
-  checkInit,
-  checkFetch,
-  togglePair,
-  clearAllPairs,
-} from 'state/utils'
+  SectionHeader,
+  SectionHeaderRow,
+  SectionHeaderItem,
+  SectionHeaderTitle,
+  SectionHeaderItemLabel,
+} from 'ui/SectionHeader'
+import ColumnsFilter from 'ui/ColumnsFilter'
+import SectionSwitch from 'ui/SectionSwitch'
+import MultiPairSelector from 'ui/MultiPairSelector'
+import ClearFiltersButton from 'ui/ClearFiltersButton'
+import {
+  addTargetPair,
+  fetchPositions,
+  setTargetPairs,
+  removeTargetPair,
+  clearTargetPairs,
+} from 'state/positions/actions'
+import {
+  getEntries,
+  getPageLoading,
+  getTargetPairs,
+  getDataReceived,
+  getExistingPairs,
+} from 'state/positions/selectors'
+import { getPath } from 'state/query/utils'
+import queryConstants from 'state/query/constants'
+import { getColumns } from 'state/filters/selectors'
+import { getIsSyncRequired } from 'state/sync/selectors'
+import { getColumnsWidth } from 'state/columns/selectors'
+import { getFilteredEntries } from 'state/pagination/selectors'
+import { getFullTime, getTimeOffset } from 'state/base/selectors'
+import usePairFilter from 'hooks/usePairFilter'
+import useFetchLifecycle from 'hooks/useFetchLifecycle'
 
-import getColumns from './Positions.columns'
+import getTableColumns from './Positions.columns'
 
 const TYPE = queryConstants.MENU_POSITIONS
 
-class Positions extends PureComponent {
-  static propTypes = {
-    columns: PropTypes.shape({
-      amount: PropTypes.bool,
-      basePrice: PropTypes.bool,
-      id: PropTypes.bool,
-      marginFunding: PropTypes.bool,
-      marginFundingType: PropTypes.bool,
-      mtsUpdate: PropTypes.bool,
-      pair: PropTypes.bool,
-      status: PropTypes.bool,
-    }),
-    columnsWidth: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired,
-    })),
-    entries: PropTypes.arrayOf(PropTypes.shape({
-      amount: PropTypes.number,
-      basePrice: PropTypes.number,
-      liquidationPrice: PropTypes.number,
-      marginFunding: PropTypes.number,
-      marginFundingType: PropTypes.number,
-      mtsUpdate: PropTypes.number,
-      pair: PropTypes.string.isRequired,
-      pl: PropTypes.number,
-      plPerc: PropTypes.number,
-    })),
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }).isRequired,
-    existingPairs: PropTypes.arrayOf(PropTypes.string),
-    getFullTime: PropTypes.func.isRequired,
-    dataReceived: PropTypes.bool.isRequired,
-    pageLoading: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
-    targetPairs: PropTypes.arrayOf(PropTypes.string),
-    timeOffset: PropTypes.string.isRequired,
-  }
+const Positions = () => {
+  const { t } = useTranslation()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const timeOffset = useSelector(getTimeOffset)
+  const getFullTimeFn = useSelector(getFullTime)
+  const pageLoading = useSelector(getPageLoading)
+  const match = useRouteMatch('/positions/:pair')
+  const dataReceived = useSelector(getDataReceived)
+  const existingPairs = useSelector(getExistingPairs)
+  const isSyncRequired = useSelector(getIsSyncRequired)
+  const columns = useSelector(state => getColumns(state, TYPE))
+  const columnsWidth = useSelector(state => getColumnsWidth(state, TYPE))
+  const entries = useSelector(state => getFilteredEntries(state, TYPE, getEntries(state)))
 
-  static defaultProps = {
-    columns: {},
-    entries: [],
-    targetPairs: [],
-    columnsWidth: [],
-    existingPairs: [],
-  }
+  useFetchLifecycle(TYPE, {
+    match,
+    pageLoading,
+    dataReceived,
+    isSyncRequired,
+    fetchData: () => dispatch(fetchPositions()),
+    setTargetPairs: (p) => dispatch(setTargetPairs(p)),
+  })
 
-  componentDidMount() {
-    checkInit(this.props, TYPE)
-  }
+  const { targetPairs, togglePair, clearPairs } = usePairFilter(TYPE, {
+    getTargetPairs,
+    addTargetPair,
+    removeTargetPair,
+    clearTargetPairs,
+  })
 
-  componentDidUpdate(prevProps) {
-    checkFetch(prevProps, this.props, TYPE)
-  }
-
-  jumpToPositionsAudit = (e) => {
+  const jumpToPositionsAudit = useCallback((e) => {
     e.preventDefault()
-    const { history } = this.props
     const id = e.target.getAttribute('value')
     history.push(`${getPath(queryConstants.MENU_POSITIONS_AUDIT)}/${id}${window.location.search}`)
-  }
+  }, [history])
 
-  togglePair = pair => togglePair(TYPE, this.props, pair)
+  const isNoData = isEmpty(entries)
+  const isLoading = !dataReceived && pageLoading
+  const tableColumns = getTableColumns({
+    t,
+    isNoData,
+    isLoading,
+    timeOffset,
+    columnsWidth,
+    target: TYPE,
+    filteredData: entries,
+    getFullTime: getFullTimeFn,
+    onIdClick: jumpToPositionsAudit,
+  }).filter(({ id }) => columns[id])
 
-  clearPairs = () => clearAllPairs(TYPE, this.props)
-
-  render() {
-    const {
-      t,
-      columns,
-      entries,
-      timeOffset,
-      getFullTime,
-      targetPairs,
-      pageLoading,
-      columnsWidth,
-      dataReceived,
-      existingPairs,
-    } = this.props
-    const isNoData = isEmpty(entries)
-    const isLoading = !dataReceived && pageLoading
-    const tableColumns = getColumns({
-      t,
-      isNoData,
-      isLoading,
-      timeOffset,
-      getFullTime,
-      columnsWidth,
-      target: TYPE,
-      filteredData: entries,
-      onIdClick: this.jumpToPositionsAudit,
-    }).filter(({ id }) => columns[id])
-
-    let showContent
-    if (isNoData) {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            isNoData={isNoData}
-            isLoading={isLoading}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : 1}
-          />
-        </div>
-      )
-    } else {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : entries.length}
-          />
-          <Pagination
-            target={TYPE}
-            loading={pageLoading}
-          />
-        </div>
-      )
-    }
-
-    return (
-      <Card
-        elevation={Elevation.ZERO}
-        className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
-      >
-        <SectionHeader
-          target={TYPE}
-          showHeaderTabs
-          title='positions.title'
-          pairsSelectorProps={{
-            existingPairs,
-            currentFilters: targetPairs,
-            togglePair: this.togglePair,
-          }}
-          clearTargetPairs={this.clearPairs}
+  let showContent
+  if (isNoData) {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          isNoData={isNoData}
+          isLoading={isLoading}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : 1}
         />
-        {showContent}
-      </Card>
+      </div>
+    )
+  } else {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : entries.length}
+        />
+        <Pagination
+          target={TYPE}
+          loading={pageLoading}
+        />
+      </div>
     )
   }
+
+  return (
+    <Card
+      elevation={Elevation.ZERO}
+      className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
+    >
+      <SectionHeader>
+        <SectionHeaderTitle>
+          {t('positions.title')}
+        </SectionHeaderTitle>
+        <SectionSwitch target={TYPE} />
+        <SectionHeaderRow>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.date')}
+            </SectionHeaderItemLabel>
+            <TimeRange className='section-header-time-range' />
+          </SectionHeaderItem>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.symbol')}
+            </SectionHeaderItemLabel>
+            <MultiPairSelector
+              togglePair={togglePair}
+              currentFilters={targetPairs}
+              existingPairs={existingPairs}
+            />
+          </SectionHeaderItem>
+          <ClearFiltersButton onClick={clearPairs} />
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.columns')}
+            </SectionHeaderItemLabel>
+            <ColumnsFilter target={TYPE} />
+          </SectionHeaderItem>
+        </SectionHeaderRow>
+      </SectionHeader>
+      {showContent}
+    </Card>
+  )
 }
 
 export default Positions
