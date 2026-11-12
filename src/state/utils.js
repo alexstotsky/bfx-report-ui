@@ -366,29 +366,6 @@ export function setPair(type, props, pair) {
   }
 }
 
-export const clearAllPairs = (type, props) => {
-  const { history, clearTargetPairs } = props
-  clearTargetPairs()
-  history.push(generateUrl(type, window.location.search))
-}
-
-export function togglePair(type, props, pair) {
-  const {
-    history, targetPairs, addTargetPair, removeTargetPair,
-  } = props
-
-  let nextPairs
-
-  if (!targetPairs.includes(pair)) {
-    nextPairs = [...targetPairs, pair]
-    addTargetPair(pair)
-  } else {
-    nextPairs = targetPairs.filter(tag => pair !== tag)
-    removeTargetPair(pair)
-  }
-  history.push(generateUrl(type, window.location.search, demapPairs(nextPairs)))
-}
-
 export const getCurrentEntries = memoizeOne(
   (entries, page, pageSize) => entries.slice((page - 1) * pageSize, page * pageSize),
 )
@@ -527,7 +504,6 @@ export const getWalletsEntries = entries => entries.map((entry) => {
 
 export default {
   checkFetch,
-  clearAllPairs,
   DEFAULT_DATETIME_FORMAT,
   getQueryWithoutParams,
   makeFetchCall,
