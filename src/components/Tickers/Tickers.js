@@ -1,137 +1,161 @@
-import React, { PureComponent } from 'react'
-import { withTranslation } from 'react-i18next'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useRouteMatch } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Card, Elevation } from '@blueprintjs/core'
 import { isEmpty } from '@bitfinex/lib-js-util-base'
 
+import DataTable from 'ui/DataTable'
+import TimeRange from 'ui/TimeRange'
+import Pagination from 'ui/Pagination'
 import {
   SectionHeader,
-  SectionHeaderItem,
-  SectionHeaderItemLabel,
   SectionHeaderRow,
+  SectionHeaderItem,
   SectionHeaderTitle,
+  SectionHeaderItemLabel,
 } from 'ui/SectionHeader'
-import TimeRange from 'ui/TimeRange'
 import ColumnsFilter from 'ui/ColumnsFilter'
-import MultiPairSelector from 'ui/MultiPairSelector'
-import Pagination from 'ui/Pagination'
 import SyncPrefButton from 'ui/SyncPrefButton'
+import MultiPairSelector from 'ui/MultiPairSelector'
 import ClearFiltersButton from 'ui/ClearFiltersButton'
-import DataTable from 'ui/DataTable'
-import queryConstants from 'state/query/constants'
 import {
-  checkInit,
-  checkFetch,
-  togglePair,
-  clearAllPairs,
-} from 'state/utils'
+  fetchTickers,
+  addTargetPair,
+  setTargetPairs,
+  removeTargetPair,
+  clearTargetPairs,
+} from 'state/tickers/actions'
+import {
+  getEntries,
+  getPageLoading,
+  getTargetPairs,
+  getDataReceived,
+  getExistingPairs,
+} from 'state/tickers/selectors'
+import queryConstants from 'state/query/constants'
+import { getColumns } from 'state/filters/selectors'
+import { getIsSyncRequired } from 'state/sync/selectors'
+import { getColumnsWidth } from 'state/columns/selectors'
+import { getFilteredEntries } from 'state/pagination/selectors'
+import { getFullTime, getTimeOffset } from 'state/base/selectors'
+import usePairFilter from 'hooks/usePairFilter'
+import useFetchLifecycle from 'hooks/useFetchLifecycle'
 
-import { getColumns } from './Tickers.columns'
-import { propTypes, defaultProps } from './Tickers.props'
+import { getColumns as getTableColumns } from './Tickers.columns'
 
 const TYPE = queryConstants.MENU_TICKERS
 
-class Tickers extends PureComponent {
-  componentDidMount() {
-    checkInit(this.props, TYPE)
-  }
+const Tickers = () => {
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const timeOffset = useSelector(getTimeOffset)
+  const match = useRouteMatch('/tickers/:pair')
+  const getFullTimeFn = useSelector(getFullTime)
+  const pageLoading = useSelector(getPageLoading)
+  const dataReceived = useSelector(getDataReceived)
+  const existingPairs = useSelector(getExistingPairs)
+  const isSyncRequired = useSelector(getIsSyncRequired)
+  const columns = useSelector(state => getColumns(state, TYPE))
+  const columnsWidth = useSelector(state => getColumnsWidth(state, TYPE))
+  const entries = useSelector(state => getFilteredEntries(state, TYPE, getEntries(state)))
 
-  componentDidUpdate(prevProps) {
-    checkFetch(prevProps, this.props, TYPE)
-  }
+  useFetchLifecycle(TYPE, {
+    match,
+    pageLoading,
+    dataReceived,
+    isSyncRequired,
+    fetchData: () => dispatch(fetchTickers()),
+    setTargetPairs: (p) => dispatch(setTargetPairs(p)),
+  })
 
-  togglePair = pair => togglePair(TYPE, this.props, pair)
+  const { targetPairs, togglePair, clearPairs } = usePairFilter(TYPE, {
+    getTargetPairs,
+    addTargetPair,
+    removeTargetPair,
+    clearTargetPairs,
+  })
 
-  clearPairs = () => clearAllPairs(TYPE, this.props)
+  const isNoData = isEmpty(entries)
+  const isLoading = !dataReceived && pageLoading
+  const tableColumns = getTableColumns({
+    t,
+    isNoData,
+    isLoading,
+    timeOffset,
+    columnsWidth,
+    filteredData: entries,
+    getFullTime: getFullTimeFn,
+  }).filter(({ id }) => columns[id])
 
-  render() {
-    const {
-      t,
-      columns,
-      entries,
-      timeOffset,
-      getFullTime,
-      pageLoading,
-      targetPairs,
-      columnsWidth,
-      dataReceived,
-      existingPairs,
-    } = this.props
-    const isNoData = isEmpty(entries)
-    const isLoading = !dataReceived && pageLoading
-    const tableColumns = getColumns({
-      t,
-      isNoData,
-      isLoading,
-      timeOffset,
-      getFullTime,
-      columnsWidth,
-      filteredData: entries,
-    }).filter(({ id }) => columns[id])
-
-    let showContent
-    if (isNoData) {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            isNoData={isNoData}
-            isLoading={isLoading}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : 1}
-          />
-        </div>
-      )
-    } else {
-      showContent = (
-        <div className='data-table-wrapper'>
-          <DataTable
-            section={TYPE}
-            tableColumns={tableColumns}
-            numRows={isLoading ? 5 : entries.length}
-          />
-          <Pagination target={TYPE} loading={pageLoading} />
-        </div>
-      )
-    }
-
-    return (
-      <Card elevation={Elevation.ZERO} className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-        <SectionHeader>
-          <SectionHeaderTitle>{t('tickers.spot')}</SectionHeaderTitle>
-          <SectionHeaderRow>
-            <SectionHeaderItem>
-              <SectionHeaderItemLabel>
-                {t('selector.filter.date')}
-              </SectionHeaderItemLabel>
-              <TimeRange className='section-header-time-range' />
-            </SectionHeaderItem>
-            <SectionHeaderItem>
-              <SectionHeaderItemLabel>
-                {t('selector.filter.symbol')}
-              </SectionHeaderItemLabel>
-              <MultiPairSelector
-                currentFilters={targetPairs}
-                existingPairs={existingPairs}
-                togglePair={this.togglePair}
-              />
-            </SectionHeaderItem>
-            <ClearFiltersButton onClick={this.clearPairs} />
-            <SectionHeaderItem>
-              <SectionHeaderItemLabel>
-                {t('selector.filter.columns')}
-              </SectionHeaderItemLabel>
-              <ColumnsFilter target={TYPE} />
-            </SectionHeaderItem>
-            <SyncPrefButton sectionType={TYPE} />
-          </SectionHeaderRow>
-        </SectionHeader>
-        {showContent}
-      </Card>
+  let showContent
+  if (isNoData) {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          isNoData={isNoData}
+          isLoading={isLoading}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : 1}
+        />
+      </div>
+    )
+  } else {
+    showContent = (
+      <div className='data-table-wrapper'>
+        <DataTable
+          section={TYPE}
+          tableColumns={tableColumns}
+          numRows={isLoading ? 5 : entries.length}
+        />
+        <Pagination
+          target={TYPE}
+          loading={pageLoading}
+        />
+      </div>
     )
   }
+
+  return (
+    <Card
+      elevation={Elevation.ZERO}
+      className='col-lg-12 col-md-12 col-sm-12 col-xs-12'
+    >
+      <SectionHeader>
+        <SectionHeaderTitle>
+          {t('tickers.spot')}
+        </SectionHeaderTitle>
+        <SectionHeaderRow>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.date')}
+            </SectionHeaderItemLabel>
+            <TimeRange className='section-header-time-range' />
+          </SectionHeaderItem>
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.symbol')}
+            </SectionHeaderItemLabel>
+            <MultiPairSelector
+              togglePair={togglePair}
+              currentFilters={targetPairs}
+              existingPairs={existingPairs}
+            />
+          </SectionHeaderItem>
+          <ClearFiltersButton onClick={clearPairs} />
+          <SectionHeaderItem>
+            <SectionHeaderItemLabel>
+              {t('selector.filter.columns')}
+            </SectionHeaderItemLabel>
+            <ColumnsFilter target={TYPE} />
+          </SectionHeaderItem>
+          <SyncPrefButton sectionType={TYPE} />
+        </SectionHeaderRow>
+      </SectionHeader>
+      {showContent}
+    </Card>
+  )
 }
 
-Tickers.propTypes = propTypes
-Tickers.defaultProps = defaultProps
-
-export default withTranslation('translations')(Tickers)
+export default Tickers
