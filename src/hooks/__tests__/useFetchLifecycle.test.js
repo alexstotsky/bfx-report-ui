@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import React, { act } from 'react'
 import { createRoot } from 'react-dom/client'
 
@@ -5,13 +6,16 @@ import queryConstants from 'state/query/constants'
 
 import useFetchLifecycle from '../useFetchLifecycle'
 
-jest.mock('config', () => ({
-  __esModule: true,
-  default: {
-    ...jest.requireActual('config').default,
-    showFrameworkMode: true,
-  },
-}))
+vi.mock('config', async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    default: {
+      ...actual.default,
+      showFrameworkMode: true,
+    },
+  }
+})
 
 window.IS_REACT_ACT_ENVIRONMENT = true
 
@@ -26,8 +30,8 @@ const buildProps = (props = {}) => ({
   pageLoading: false,
   dataReceived: false,
   isSyncRequired: false,
-  fetchData: jest.fn(),
-  setTargetSymbols: jest.fn(),
+  fetchData: vi.fn(),
+  setTargetSymbols: vi.fn(),
   match: { params: { symbol: 'BTC,ETH' } },
   ...props,
 })
