@@ -98,7 +98,6 @@
     "not op_mini all"
   ],
   "overrides": {
-    "html-parse-stringify2": "2.0.2",
-    "shell-quote": "1.12.0"
+    "html-parse-stringify2": "2.0.2"
   }
 }
