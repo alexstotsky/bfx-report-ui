@@ -23,7 +23,7 @@ import actions from './actions'
 
 const TYPE = queryTypes.MENU_AFFILIATES_EARNINGS
 
-function getReqLedgers({
+export function getReqLedgers({
   end,
   start,
   filter,
@@ -43,7 +43,7 @@ function getReqLedgers({
 }
 
 /* eslint-disable-next-line consistent-return */
-function* fetchAffiliatesEarnings() {
+export function* fetchAffiliatesEarnings() {
   try {
     const { targetSymbols } = yield select(getAffiliatesEarnings)
     const { smallestMts } = yield select(getPaginationData, TYPE)
