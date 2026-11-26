@@ -23,7 +23,7 @@ import { getFundingCreditHistory } from './selectors'
 const TYPE = queryTypes.MENU_FCREDIT
 const LIMIT = getQueryLimit(TYPE)
 
-function getReqFCredit({
+export function getReqFCredit({
   start,
   end,
   targetSymbols,
@@ -39,7 +39,7 @@ function getReqFCredit({
   return makeFetchCall('getFundingCreditHistory', params)
 }
 
-function* fetchFCredit() {
+export function* fetchFCredit() {
   try {
     const { targetSymbols } = yield select(getFundingCreditHistory)
     const { smallestMts } = yield select(getPaginationData, TYPE)
