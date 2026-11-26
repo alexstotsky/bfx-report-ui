@@ -20,7 +20,7 @@ import { formatPair, removePrefix, mapSymbol } from 'state/symbols/utils'
 
 import types from './constants'
 
-const initialState = {
+export const initialState = {
   ...baseSymbolState,
 }
 
